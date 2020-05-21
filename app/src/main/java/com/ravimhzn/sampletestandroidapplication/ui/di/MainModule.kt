@@ -1,6 +1,7 @@
 package com.ravimhzn.sampletestandroidapplication.ui.di
 
 import com.ravimhzn.sampletestandroidapplication.network.ApiService
+import com.ravimhzn.sampletestandroidapplication.repository.MainRepository
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -14,16 +15,9 @@ class MainModule {
         retrofitBuilder.build()
             .create(ApiService::class.java)
 
-//    @MainScope
-//    @Provides
-//    fun provideAccountRepository(
-//        openApiMainService: OpenApiMainService,
-//        accountPropertiesDao: AccountPropertiesDao,
-//        sessionManager: SessionManager
-//    ): AccountRepository =
-//        AccountRepository(
-//            openApiMainService,
-//            accountPropertiesDao,
-//            sessionManager
-//        )
+    @MainScope
+    @Provides
+    fun provideMainRepository(
+        apiService: ApiService
+    ): MainRepository = MainRepository(apiService = apiService)
 }
