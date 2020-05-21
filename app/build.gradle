@@ -68,6 +68,7 @@ dependencies {
     //Lifecycle
     implementation Dependencies.lifecycle_runtime
     implementation Dependencies.lifecycle_coroutines
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt Dependencies.lifecycle_compiler
 
     //Jetpack
