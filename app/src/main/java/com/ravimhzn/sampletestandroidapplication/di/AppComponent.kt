@@ -2,6 +2,7 @@ package com.ravimhzn.sampletestandroidapplication.di
 
 
 import android.app.Application
+import com.ravimhzn.sampletestandroidapplication.utils.Connection
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -18,6 +19,8 @@ import javax.inject.Singleton
     ]
 )
 interface AppComponent : AndroidInjector<BaseApplication> {
+
+    val connection: Connection //Adding this here will enables us to use it anywhere within the application
 
     @Component.Builder
     interface Builder {

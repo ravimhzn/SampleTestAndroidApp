@@ -9,7 +9,7 @@ import retrofit2.http.GET
 interface ApiService {
 
     @GET(PREFIX_USERS)
-    fun getUserList(): LiveData<GenericApiResponse<UserListResponse>>
+    fun getUserList(): LiveData<GenericApiResponse<List<UserListResponse>>>
 
 
 }

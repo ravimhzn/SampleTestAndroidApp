@@ -14,6 +14,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val mainRepository: MainRepository
 ) : BaseViewModel<MainStateEvent, MainViewState>() {
+
     override fun initNewViewState(): MainViewState {
         return MainViewState()
     }
@@ -21,7 +22,7 @@ class MainViewModel @Inject constructor(
     override fun handleStateEvent(stateEvent: MainStateEvent): LiveData<DataState<MainViewState>> {
         return when (stateEvent) {
             is GetUserListEvent -> {
-                AbsentLiveData.create()
+               mainRepository.getUserListFromServer()
             }
             is None -> {
                 AbsentLiveData.create()

@@ -8,7 +8,6 @@ import com.ravimhzn.sampletestandroidapplication.ui.Response
 import com.ravimhzn.sampletestandroidapplication.ui.ResponseType
 import com.ravimhzn.sampletestandroidapplication.utils.*
 import com.ravimhzn.sampletestandroidapplication.utils.Constants.Companion.NETWORK_TIMEOUT
-import com.ravimhzn.sampletestandroidapplication.utils.Constants.Companion.TESTING_CACHE_DELAY
 import com.ravimhzn.sampletestandroidapplication.utils.Constants.Companion.TESTING_NETWORK_DELAY
 import com.ravimhzn.sampletestandroidapplication.utils.ErrorHandling.Companion.ERROR_CHECK_NETWORK_CONNECTION
 import com.ravimhzn.sampletestandroidapplication.utils.ErrorHandling.Companion.ERROR_UNKNOWN
@@ -16,7 +15,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 
-abstract class NetworkBoundResource<ResponseObject, CacheObject, ViewStateType>
+abstract class NetworkBoundResource<ResponseObject, ViewStateType>
     (
     isNetworkAvailable: Boolean, // is their a network connection?
     isNetworkRequest: Boolean, // is this a network request?
