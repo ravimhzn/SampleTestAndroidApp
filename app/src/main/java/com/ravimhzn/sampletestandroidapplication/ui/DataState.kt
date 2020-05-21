@@ -1,4 +1,4 @@
-package com.ravimhzn.mightyapp.ui
+package com.ravimhzn.sampletestandroidapplication.ui
 
 //Result Wrapper Class (Loading, Success/data, Error)
 data class DataState<T>(

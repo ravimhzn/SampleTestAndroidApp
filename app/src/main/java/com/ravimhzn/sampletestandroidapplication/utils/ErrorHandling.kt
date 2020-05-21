@@ -1,11 +1,10 @@
-package com.ravimhzn.mightyapp.util
+package com.ravimhzn.sampletestandroidapplication.utils
 
 import android.util.Log
 import org.json.JSONException
 import org.json.JSONObject
 
 class ErrorHandling {
-
 
     companion object {
 

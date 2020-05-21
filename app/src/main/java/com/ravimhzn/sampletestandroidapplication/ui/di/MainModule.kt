@@ -1,12 +1,6 @@
-package com.ravimhzn.mightyapp.di.main
+package com.ravimhzn.sampletestandroidapplication.ui.di
 
-import com.ravimhzn.mightyapp.network.main.OpenApiMainService
-import com.ravimhzn.mightyapp.persistence.AccountPropertiesDao
-import com.ravimhzn.mightyapp.persistence.AppDatabase
-import com.ravimhzn.mightyapp.persistence.BlogPostDao
-import com.ravimhzn.mightyapp.repository.main.AccountRepository
-import com.ravimhzn.mightyapp.repository.main.BlogRepository
-import com.ravimhzn.mightyapp.session.SessionManager
+import com.ravimhzn.sampletestandroidapplication.network.ApiService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -16,41 +10,20 @@ class MainModule {
 
     @MainScope
     @Provides
-    fun provideApiService(retrofitBuilder: Retrofit.Builder): OpenApiMainService =
+    fun provideApiService(retrofitBuilder: Retrofit.Builder): ApiService =
         retrofitBuilder.build()
-            .create(OpenApiMainService::class.java)
+            .create(ApiService::class.java)
 
-    @MainScope
-    @Provides
-    fun provideAccountRepository(
-        openApiMainService: OpenApiMainService,
-        accountPropertiesDao: AccountPropertiesDao,
-        sessionManager: SessionManager
-    ): AccountRepository =
-        AccountRepository(
-            openApiMainService,
-            accountPropertiesDao,
-            sessionManager
-        )
-
-    @MainScope
-    @Provides
-    fun provideBlogPostDao(db: AppDatabase): BlogPostDao {
-        return db.getBlogPostDao()
-    }
-
-    @MainScope
-    @Provides
-    fun provideBlogRepository(
-        openApiMainService: OpenApiMainService,
-        blogPostDao: BlogPostDao,
-        sessionManager: SessionManager
-    ): BlogRepository {
-        return BlogRepository(
-            openApiMainService = openApiMainService,
-            blogPostDao = blogPostDao,
-            sessionManager = sessionManager
-        )
-    }
-
+//    @MainScope
+//    @Provides
+//    fun provideAccountRepository(
+//        openApiMainService: OpenApiMainService,
+//        accountPropertiesDao: AccountPropertiesDao,
+//        sessionManager: SessionManager
+//    ): AccountRepository =
+//        AccountRepository(
+//            openApiMainService,
+//            accountPropertiesDao,
+//            sessionManager
+//        )
 }

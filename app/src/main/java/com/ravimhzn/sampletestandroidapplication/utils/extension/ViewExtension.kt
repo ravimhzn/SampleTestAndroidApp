@@ -1,11 +1,11 @@
-package com.ravimhzn.mightyapp.util.extension
+package com.ravimhzn.sampletestandroidapplication.utils.extension
 
 import android.content.Context
 import android.text.Editable
 import android.widget.Toast
 import androidx.annotation.StringRes
 import com.afollestad.materialdialogs.MaterialDialog
-import com.ravimhzn.mightyapp.R
+import com.ravimhzn.sampletestandroidapplication.R
 
 fun Context.displayToast(@StringRes message: Int) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

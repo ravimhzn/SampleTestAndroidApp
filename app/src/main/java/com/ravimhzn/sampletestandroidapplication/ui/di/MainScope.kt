@@ -1,4 +1,4 @@
-package com.ravimhzn.mightyapp.di.main
+package com.ravimhzn.sampletestandroidapplication.ui.di
 
 import javax.inject.Scope
 

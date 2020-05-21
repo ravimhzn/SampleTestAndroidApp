@@ -1,9 +1,5 @@
-package com.ravimhzn.mightyapp.ui
+package com.ravimhzn.sampletestandroidapplication.ui
 
 interface DataStateChangeListener {
     fun onDataStateChange(dataState: DataState<*>?)
-
-    fun expandAppBar()
-
-    fun hideSoftKeyboard()
 }

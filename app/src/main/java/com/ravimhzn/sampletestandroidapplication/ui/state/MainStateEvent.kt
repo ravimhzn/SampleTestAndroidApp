@@ -1,4 +1,8 @@
 package com.ravimhzn.sampletestandroidapplication.ui.state
 
-class MainStateEvent {
+sealed class MainStateEvent {
+
+    class GetUserListEvent() : MainStateEvent()
+
+    class None() : MainStateEvent()
 }

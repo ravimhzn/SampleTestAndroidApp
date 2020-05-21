@@ -1,4 +1,4 @@
-package com.ravimhzn.mightyapp.util
+package com.ravimhzn.sampletestandroidapplication.utils
 
 import androidx.lifecycle.LiveData
 

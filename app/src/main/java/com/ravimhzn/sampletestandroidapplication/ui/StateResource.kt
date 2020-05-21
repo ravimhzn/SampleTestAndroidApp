@@ -1,5 +1,4 @@
-package com.ravimhzn.mightyapp.ui
-
+package com.ravimhzn.sampletestandroidapplication.ui
 
 data class Loading(val isLoading: Boolean)
 data class Data<T>(val data: Event<T>?, val response: Event<Response>?)

@@ -1,4 +1,4 @@
-package com.ravimhzn.mightyapp.ui
+package com.ravimhzn.sampletestandroidapplication.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
