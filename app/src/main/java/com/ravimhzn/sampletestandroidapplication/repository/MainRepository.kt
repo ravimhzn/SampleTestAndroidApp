@@ -1,5 +1,6 @@
 package com.ravimhzn.sampletestandroidapplication.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.ravimhzn.sampletestandroidapplication.network.ApiService
 import com.ravimhzn.sampletestandroidapplication.network.responses.UserListResponse
@@ -16,6 +17,8 @@ class MainRepository @Inject constructor(
     private val connection: Connection
 ) : JobManager("MainRepository") {
 
+    private val TAG = "AppDebug ->"
+
     fun getUserListFromServer(): LiveData<DataState<MainViewState>> {
         return object : NetworkBoundResource<List<UserListResponse>, MainViewState>(
             connection.isConnectedToInternet(),
@@ -23,6 +26,7 @@ class MainRepository @Inject constructor(
             true
         ) {
             override suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<List<UserListResponse>>) {
+                Log.d(TAG, "handleApiSuccessResponse: $response")
                 onCompleteJob(
                     DataState.data(
                         MainViewState(

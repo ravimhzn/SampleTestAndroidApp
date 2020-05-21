@@ -1,6 +1,7 @@
 package com.ravimhzn.sampletestandroidapplication.ui.viewModels
 
 import androidx.lifecycle.LiveData
+import com.ravimhzn.sampletestandroidapplication.network.responses.UserListResponse
 import com.ravimhzn.sampletestandroidapplication.repository.MainRepository
 import com.ravimhzn.sampletestandroidapplication.ui.BaseViewModel
 import com.ravimhzn.sampletestandroidapplication.ui.DataState
@@ -22,12 +23,19 @@ class MainViewModel @Inject constructor(
     override fun handleStateEvent(stateEvent: MainStateEvent): LiveData<DataState<MainViewState>> {
         return when (stateEvent) {
             is GetUserListEvent -> {
-               mainRepository.getUserListFromServer()
+                mainRepository.getUserListFromServer()
             }
             is None -> {
                 AbsentLiveData.create()
             }
         }
+    }
+
+
+    fun setUserList(arrUserListResponse: List<UserListResponse>) {
+        val update = getCurrentViewStateOrNew()
+        update.userList.arrUserList = arrUserListResponse
+        setViewState(update)
     }
 
     fun cancelActiveJobs() {
@@ -43,4 +51,6 @@ class MainViewModel @Inject constructor(
         super.onCleared()
         cancelActiveJobs()
     }
+
+
 }
