@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/fragmentUserList"
         android:name="com.ravimhzn.sampletestandroidapplication.ui.fragments.FragmentUserList"
-        android:label="fragment_frag_user_list"
+        android:label="@string/user_info"
         tools:layout="@layout/fragment_frag_user_list">
         <action
             android:id="@+id/action_fragmentUserList_to_fragmentPictureList"
@@ -22,7 +22,6 @@
     <fragment
         android:id="@+id/fragmentPictureList"
         android:name="com.ravimhzn.sampletestandroidapplication.ui.fragments.FragmentPictureList"
-        android:label="fragment_picture_list"
         tools:layout="@layout/fragment_picture_list">
         <action
             android:id="@+id/action_fragmentPictureList_to_fragmentPictureDetails"
@@ -36,6 +35,5 @@
     <fragment
         android:id="@+id/fragmentPictureDetails"
         android:name="com.ravimhzn.sampletestandroidapplication.ui.fragments.FragmentPictureDetails"
-        android:label="fragment_picture_details"
         tools:layout="@layout/fragment_picture_details" />
 </navigation>

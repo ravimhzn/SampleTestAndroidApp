@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ravimhzn.sampletestandroidapplication.R
 import com.ravimhzn.sampletestandroidapplication.network.responses.UserListResponse
@@ -32,6 +34,9 @@ class FragmentUserList : MainBaseFragment(), UserListAdapter.Interaction {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+        setHasOptionsMenu(true)
+
         viewModel.setStateEvent(MainStateEvent.GetUserListEvent()) //Fire the stateEvent
         initRecyclerView()
         subscribeObservers()
@@ -58,8 +63,8 @@ class FragmentUserList : MainBaseFragment(), UserListAdapter.Interaction {
                 dataState.data?.let {
                     it.data?.let {
                         it.getContentIfNotHandled()?.let {
-                            Log.d(TAG, "BlogFragment, DataState: ${it}")
-                            viewModel.setUserList(it.userList.arrUserList)
+                            Log.d(TAG, "FragmentUserList, DataState: ${it}")
+                            viewModel.setUserList(it.userList)
                         }
                     }
                 }
@@ -83,8 +88,8 @@ class FragmentUserList : MainBaseFragment(), UserListAdapter.Interaction {
     }
 
     override fun onItemSelected(position: Int, item: UserListResponse) {
-//        viewModel.setUserListItem(item)
-//        findNavController().navigate()
+        Log.d(TAG, "onItemSelected: $item")
+        viewModel.setUserListResponse(item)
+        findNavController().navigate(R.id.action_fragmentUserList_to_fragmentPictureList)
     }
-
 }
