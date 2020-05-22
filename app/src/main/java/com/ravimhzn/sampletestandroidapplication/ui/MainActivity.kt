@@ -18,7 +18,10 @@ class MainActivity : BaseActivity(), DataStateChangeListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setupActionBar()
     }
 
-    //TODO(CANCEL ACTIVE JOBS ON BACKPRESS)
+    private fun setupActionBar() {
+        setSupportActionBar(tool_bar)
+    }
 }

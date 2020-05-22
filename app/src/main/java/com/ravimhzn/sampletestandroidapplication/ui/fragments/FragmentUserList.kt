@@ -34,12 +34,16 @@ class FragmentUserList : MainBaseFragment(), UserListAdapter.Interaction {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-        setHasOptionsMenu(true)
-
+        setUpActionBar()
         viewModel.setStateEvent(MainStateEvent.GetUserListEvent()) //Fire the stateEvent
         initRecyclerView()
         subscribeObservers()
+    }
+
+    private fun setUpActionBar() {
+        var actionBar = (activity as AppCompatActivity).supportActionBar
+        actionBar?.setDisplayShowTitleEnabled(true)
+        actionBar?.setTitle("Hello world")
     }
 
     private fun initRecyclerView() {

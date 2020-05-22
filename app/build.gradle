@@ -93,7 +93,9 @@ dependencies {
     implementation SupportDependencies.cardLayout
     implementation SupportDependencies.recyclerView
     implementation SupportDependencies.glide
-    kapt SupportDependencies.glide_compiler
+    annotationProcessor SupportDependencies.glide_compiler
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     //Unit Test
     testImplementation TestDependencies.mockk

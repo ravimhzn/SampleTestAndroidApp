@@ -3,17 +3,21 @@ package com.ravimhzn.sampletestandroidapplication.ui.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ravimhzn.sampletestandroidapplication.R
+import com.ravimhzn.sampletestandroidapplication.network.responses.AlbumListResponse
+import com.ravimhzn.sampletestandroidapplication.ui.fragments.adapter.PhotoListAdapter
 import com.ravimhzn.sampletestandroidapplication.ui.state.MainStateEvent
+import com.ravimhzn.sampletestandroidapplication.utils.TopSpacingItemDecoration
+import kotlinx.android.synthetic.main.fragment_frag_user_list.*
 
-/**
- * A simple [Fragment] subclass.
- */
-class FragmentPictureList : MainBaseFragment() {
+class FragmentPictureList : MainBaseFragment(), PhotoListAdapter.Interaction {
+
+    private lateinit var recyclerAdapter: PhotoListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +29,24 @@ class FragmentPictureList : MainBaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
+        initRecyclerView()
         subscribeObservers()
+    }
+
+    private fun initRecyclerView() {
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@FragmentPictureList.context)
+            val topSpacingDecorator = TopSpacingItemDecoration(30)
+            removeItemDecoration(topSpacingDecorator) // does nothing if not applied already
+            addItemDecoration(topSpacingDecorator)
+
+            recyclerAdapter = PhotoListAdapter(
+                requestManager = requestManager,
+                interaction = this@FragmentPictureList
+            )
+            adapter = recyclerAdapter
+        }
     }
 
     private fun subscribeObservers() {
@@ -45,15 +66,22 @@ class FragmentPictureList : MainBaseFragment() {
             viewState.photoAlbumnList.userListResponse?.let { userListResponse ->
                 userListResponse.id?.let { id ->
                     viewModel.setStateEvent(MainStateEvent.GetPhotoAlbumListEvent(id))
-                    Log.e(TAG, "subscribeObservers: StatEvent Called")
                 }
             }
 
-            viewState.photoAlbumnList.arrPhotoAlbum?.let {
-                for (i in viewState.photoAlbumnList.arrPhotoAlbum) {
-                    Log.d(TAG, "${i.title}")
+            viewState.photoAlbumnList.arrPhotoAlbum?.let { arrAlbumnList ->
+                arrAlbumnList?.let {
+                    recyclerAdapter.submitList(it)
                 }
             }
         })
+    }
+
+    override fun onItemSelected(position: Int, item: AlbumListResponse) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return super.onOptionsItemSelected(item)
     }
 }

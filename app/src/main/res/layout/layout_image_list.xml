@@ -11,7 +11,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:src="@mipmap/ic_launcher"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,11 +18,13 @@
     <TextView
         android:id="@+id/tvImageText"
         style="@style/DefaultText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="Image Text"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="https://via.placeholder.com/150/24f355 https://via.placeholder.com/150/24f355"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgPhoto"
         app:layout_constraintTop_toTopOf="parent" />
 

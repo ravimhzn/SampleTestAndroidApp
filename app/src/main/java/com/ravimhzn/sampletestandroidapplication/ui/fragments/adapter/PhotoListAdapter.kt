@@ -6,11 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.RequestManager
 import com.ravimhzn.sampletestandroidapplication.R
 import com.ravimhzn.sampletestandroidapplication.network.responses.AlbumListResponse
-import kotlinx.android.synthetic.main.layout_user_list_item.view.*
+import com.ravimhzn.sampletestandroidapplication.utils.extension.setImageUrl
+import kotlinx.android.synthetic.main.layout_image_list.view.*
 
-class PhotoListAdapter(private val interaction: Interaction? = null) :
+class PhotoListAdapter(
+    private val requestManager: RequestManager,
+    private val interaction: Interaction? = null
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val DIFF_CALLBACK = object : DiffUtil.ItemCallback<AlbumListResponse>() {
@@ -41,7 +46,8 @@ class PhotoListAdapter(private val interaction: Interaction? = null) :
                 parent,
                 false
             ),
-            interaction
+            interaction = interaction,
+            requestManager = requestManager
         )
     }
 
@@ -64,15 +70,16 @@ class PhotoListAdapter(private val interaction: Interaction? = null) :
     class PhotoListViewHolder
     constructor(
         itemView: View,
-        private val interaction: Interaction?
+        private val interaction: Interaction?,
+        private val requestManager: RequestManager
     ) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(item: AlbumListResponse) = with(itemView) {
             itemView.setOnClickListener {
                 interaction?.onItemSelected(adapterPosition, item)
             }
-
-            itemView.tvId.text = "ID: ${item.id.toString()}"
+            item.thumbnailUrl?.let { itemView.imgPhoto.setImageUrl(it) }
+            itemView.tvImageText.text = "ID: ${item.title}"
         }
     }
 

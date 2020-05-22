@@ -22,7 +22,11 @@
     <fragment
         android:id="@+id/fragmentPictureList"
         android:name="com.ravimhzn.sampletestandroidapplication.ui.fragments.FragmentPictureList"
+        android:label="{dynamicTitle}"
         tools:layout="@layout/fragment_picture_list">
+        <argument
+            android:name="dynamicTitle"
+            app:argType="string" />
         <action
             android:id="@+id/action_fragmentPictureList_to_fragmentPictureDetails"
             app:destination="@id/fragmentPictureDetails"
