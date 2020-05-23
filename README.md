@@ -43,7 +43,42 @@ MVI solves the state synchronization issue by storing states as model classes, i
 
 To read more about MVI, why it's a good architecture and how it solves the state synchronization issue, you can find the article by Hannes Dorfmann here: <br>
 [Model-View-Intent on Android](http://hannesdorfmann.com/android/model-view-intent)
+
+Sample STATEEVENT used on this project:
+```aidl
+sealed class MainStateEvent {
+
+    class GetUserListEvent() : MainStateEvent()
+
+    data class GetPhotoAlbumListEvent(val id: Int) : MainStateEvent()
+
+    class None() : MainStateEvent()
+}
 ```
+Sample VIEWSTATE used on this project:
+```aidl
+data class MainViewState(
+    var userList: UserList = UserList(),
+    var photoAlbumnList: PhotoAlbumnList = PhotoAlbumnList(),
+    var viewPhotoDetails: ViewPhotoDetails = ViewPhotoDetails()
+) {
+    data class UserList(
+        var arrUserList: List<UserListResponse> = ArrayList<UserListResponse>()
+    )
+
+    data class PhotoAlbumnList(
+        var userListResponse: UserListResponse? = null,
+        var arrPhotoAlbum: List<AlbumListResponse> = ArrayList<AlbumListResponse>()//to get the list from server
+    )
+
+    data class ViewPhotoDetails(
+        var albumListResponse: AlbumListResponse? = null
+    )
+}
+```
+
+Sample DATASTATE used on this project (as recommended by Google):
+```aidl
 data class DataState<T>(
     var error: Event<StateError>? = null,
     var loading: Loading = Loading(false),
