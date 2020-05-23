@@ -36,15 +36,9 @@ class FragmentUserList : MainBaseFragment(), UserListAdapter.Interaction {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpActionBar()
         viewModel.setStateEvent(MainStateEvent.GetUserListEvent()) //Fire the stateEvent
         initRecyclerView()
         subscribeObservers()
-    }
-
-    private fun setUpActionBar() {
-        var actionBar = (activity as AppCompatActivity).supportActionBar
-        actionBar?.setDisplayShowTitleEnabled(true)
     }
 
     private fun initRecyclerView() {
@@ -95,6 +89,13 @@ class FragmentUserList : MainBaseFragment(), UserListAdapter.Interaction {
     override fun onItemSelected(position: Int, item: UserListResponse) {
         Log.d(TAG, "onItemSelected: $item")
         viewModel.setUserListResponse(item)
-        findNavController().navigate(R.id.action_fragmentUserList_to_fragmentPictureList)
+        var bundle = Bundle()
+        item.id?.let {
+            bundle.putString(
+                "title",
+                "Albumn ID: $it"
+            ) //should match the name of label on nav_graph
+        }
+        findNavController().navigate(R.id.action_fragmentUserList_to_fragmentPictureList, bundle)
     }
 }

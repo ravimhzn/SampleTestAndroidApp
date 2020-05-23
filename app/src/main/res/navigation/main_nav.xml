@@ -10,6 +10,7 @@
         android:name="com.ravimhzn.sampletestandroidapplication.ui.fragments.FragmentUserList"
         android:label="@string/user_info"
         tools:layout="@layout/fragment_frag_user_list">
+
         <action
             android:id="@+id/action_fragmentUserList_to_fragmentPictureList"
             app:destination="@id/fragmentPictureList"
@@ -20,9 +21,14 @@
     </fragment>
 
     <fragment
+        android:label="{title}"
         android:id="@+id/fragmentPictureList"
         android:name="com.ravimhzn.sampletestandroidapplication.ui.fragments.FragmentPictureList"
         tools:layout="@layout/fragment_picture_list">
+
+        <argument
+            android:name="title"
+            app:argType="string" />
 
         <action
             android:id="@+id/action_fragmentPictureList_to_fragmentPictureDetails"

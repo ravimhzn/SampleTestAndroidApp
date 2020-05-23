@@ -11,11 +11,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ravimhzn.sampletestandroidapplication.R
 import com.ravimhzn.sampletestandroidapplication.network.responses.AlbumListResponse
+import com.ravimhzn.sampletestandroidapplication.ui.MainActivity
 import com.ravimhzn.sampletestandroidapplication.ui.fragments.adapter.PhotoListAdapter
 import com.ravimhzn.sampletestandroidapplication.ui.state.MainStateEvent
 import com.ravimhzn.sampletestandroidapplication.ui.state.setAlbumListResponse
 import com.ravimhzn.sampletestandroidapplication.ui.state.setPhotoAlbumList
 import com.ravimhzn.sampletestandroidapplication.utils.TopSpacingItemDecoration
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_frag_user_list.*
 
 class FragmentPictureList : MainBaseFragment(), PhotoListAdapter.Interaction {
@@ -32,7 +34,6 @@ class FragmentPictureList : MainBaseFragment(), PhotoListAdapter.Interaction {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
         initRecyclerView()
         subscribeObservers()
     }
