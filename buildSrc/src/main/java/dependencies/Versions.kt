@@ -12,7 +12,8 @@ object Versions {
     //    val kotlin = "1.3.72" //Latest Version
     val ktx = "1.2.0"
     val dagger = "2.25.4"
-    val nav_components = "2.3.0-alpha06"
+    val nav_components = "2.3.0-alpha01"
+//    val nav_components = "2.1.0-alpha02"
     val material_dialogs = "3.2.1"
     val appcompat = "1.1.0-rc01"
     val constraintlayout = "1.1.3"
@@ -31,5 +32,10 @@ object Versions {
     val androidx_test_ext = "1.1.1"
     val swipe_refresh_layout = "1.1.0-alpha03"
     val glide_version = "4.9.0"
+    val picasso = "2.71828"
     val recyclerview_version = "1.1.0-beta03"
+
+    val mockitoVersion = "3.2.0"
+    val mockitoKotlinVersion = "2.2.0"
+    val archTest = "2.1.0"
 }

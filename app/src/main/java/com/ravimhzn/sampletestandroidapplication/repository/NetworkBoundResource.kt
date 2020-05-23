@@ -156,7 +156,6 @@ abstract class NetworkBoundResource<ResponseObject, ViewStateType>
     abstract fun createCall(): LiveData<GenericApiResponse<ResponseObject>>
 
     abstract fun setJob(job: Job)
-
 }
 
 

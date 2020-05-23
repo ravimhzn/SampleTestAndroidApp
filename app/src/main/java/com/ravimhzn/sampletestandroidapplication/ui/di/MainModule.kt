@@ -1,7 +1,7 @@
 package com.ravimhzn.sampletestandroidapplication.ui.di
 
 import com.ravimhzn.sampletestandroidapplication.network.ApiService
-import com.ravimhzn.sampletestandroidapplication.repository.MainRepository
+import com.ravimhzn.sampletestandroidapplication.repository.MainRepositoryImpl
 import com.ravimhzn.sampletestandroidapplication.utils.Connection
 import dagger.Module
 import dagger.Provides
@@ -21,5 +21,5 @@ class MainModule {
     fun provideMainRepository(
         apiService: ApiService,
         connection: Connection
-    ): MainRepository = MainRepository(apiService = apiService, connection = connection)
+    ): MainRepositoryImpl = MainRepositoryImpl(apiService = apiService, connection = connection)
 }

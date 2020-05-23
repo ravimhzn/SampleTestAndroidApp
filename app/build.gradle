@@ -92,11 +92,12 @@ dependencies {
     implementation SupportDependencies.material_design
     implementation SupportDependencies.cardLayout
     implementation SupportDependencies.recyclerView
-    implementation SupportDependencies.glide
-    kapt SupportDependencies.glide_compiler
+    implementation SupportDependencies.picasso
 
     //Unit Test
-    testImplementation TestDependencies.mockk
+    testImplementation TestDependencies.mockito
+    testImplementation TestDependencies.mockito_kotlin
+    testImplementation TestDependencies.arch_core_test
     testImplementation TestDependencies.jupiter_api
     testImplementation TestDependencies.jupiter_params
     testImplementation TestDependencies.junit4

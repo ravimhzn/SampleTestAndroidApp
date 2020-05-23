@@ -4,7 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.ravimhzn.sampletestandroidapplication.di.ViewModelProviderFactory
 import com.ravimhzn.sampletestandroidapplication.ui.DataStateChangeListener
 import com.ravimhzn.sampletestandroidapplication.ui.viewModels.MainViewModel
@@ -23,11 +26,22 @@ open class MainBaseFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+       // setupActonBarWithNavController(activity as AppCompatActivity)
         viewModel = activity?.run {
             ViewModelProvider(this, providerFactory).get(MainViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
         cancelActiveJobs()
+    }
+
+    fun setupActonBarWithNavController(activity: AppCompatActivity) {
+        /**
+         * This will help add the title in the AppBar
+         */
+        NavigationUI.setupActionBarWithNavController(
+            activity,
+            findNavController()
+        )
     }
 
     override fun onAttach(context: Context) {
@@ -37,7 +51,6 @@ open class MainBaseFragment : DaggerFragment() {
         } catch (e: ClassCastException) {
             Log.e(TAG, "$context must implement DataStateChangeListener")
         }
-
     }
 
     fun cancelActiveJobs() {

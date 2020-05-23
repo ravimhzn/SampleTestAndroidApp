@@ -16,8 +16,7 @@
             android:id="@+id/tool_bar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:titleTextColor="@color/white">
+            app:layout_scrollFlags="scroll|enterAlways">
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -39,7 +38,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <fragment
-                android:id="@+id/auth_nav_host_fragment"
+                android:id="@+id/main_nav_host_fragment"
                 android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
