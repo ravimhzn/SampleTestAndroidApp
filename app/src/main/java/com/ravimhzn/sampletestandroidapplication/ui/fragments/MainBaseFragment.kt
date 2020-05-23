@@ -33,7 +33,6 @@ open class MainBaseFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
        setupActonBarWithNavController(activity as AppCompatActivity)
-
         viewModel = activity?.run {
             ViewModelProvider(this, providerFactory).get(MainViewModel::class.java)
         } ?: throw Exception("Invalid Activity")

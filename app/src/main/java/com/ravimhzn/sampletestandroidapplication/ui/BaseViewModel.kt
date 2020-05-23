@@ -26,7 +26,7 @@ abstract class BaseViewModel<StateEvent, ViewState> : ViewModel() {
         _stateEvent.value = event
     }
 
-    //We need to do this in order to get all the setters our of viewmodels if necessary and keep things clear with kotlin-extension files.
+    //We need to do this in order to get all the setters out of viewmodels if necessary and keep things clear with kotlin-extension files.
     fun setViewState(viewState: ViewState) {
         _viewState.value = viewState
     }
@@ -40,5 +40,4 @@ abstract class BaseViewModel<StateEvent, ViewState> : ViewModel() {
     abstract fun initNewViewState(): ViewState
 
     abstract fun handleStateEvent(stateEvent: StateEvent): LiveData<DataState<ViewState>>
-
 }

@@ -2,8 +2,12 @@ package com.ravimhzn.sampletestandroidapplication.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.ravimhzn.sampletestandroidapplication.R
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : BaseActivity(), DataStateChangeListener {
 

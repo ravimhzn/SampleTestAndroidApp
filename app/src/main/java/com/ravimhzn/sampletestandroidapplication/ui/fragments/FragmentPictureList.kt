@@ -7,11 +7,14 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ravimhzn.sampletestandroidapplication.R
 import com.ravimhzn.sampletestandroidapplication.network.responses.AlbumListResponse
 import com.ravimhzn.sampletestandroidapplication.ui.fragments.adapter.PhotoListAdapter
 import com.ravimhzn.sampletestandroidapplication.ui.state.MainStateEvent
+import com.ravimhzn.sampletestandroidapplication.ui.state.setAlbumListResponse
+import com.ravimhzn.sampletestandroidapplication.ui.state.setPhotoAlbumList
 import com.ravimhzn.sampletestandroidapplication.utils.TopSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_frag_user_list.*
 
@@ -40,7 +43,6 @@ class FragmentPictureList : MainBaseFragment(), PhotoListAdapter.Interaction {
             val topSpacingDecorator = TopSpacingItemDecoration(30)
             removeItemDecoration(topSpacingDecorator) // does nothing if not applied already
             addItemDecoration(topSpacingDecorator)
-
             recyclerAdapter = PhotoListAdapter(
                 requestManager = requestManager,
                 interaction = this@FragmentPictureList
@@ -78,7 +80,8 @@ class FragmentPictureList : MainBaseFragment(), PhotoListAdapter.Interaction {
     }
 
     override fun onItemSelected(position: Int, item: AlbumListResponse) {
-        TODO("Not yet implemented")
+        viewModel.setAlbumListResponse(item)
+        findNavController().navigate(R.id.action_fragmentPictureList_to_fragmentPictureDetails)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

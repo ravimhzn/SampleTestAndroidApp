@@ -14,6 +14,8 @@ import com.ravimhzn.sampletestandroidapplication.R
 import com.ravimhzn.sampletestandroidapplication.network.responses.UserListResponse
 import com.ravimhzn.sampletestandroidapplication.ui.fragments.adapter.UserListAdapter
 import com.ravimhzn.sampletestandroidapplication.ui.state.MainStateEvent
+import com.ravimhzn.sampletestandroidapplication.ui.state.setUserList
+import com.ravimhzn.sampletestandroidapplication.ui.state.setUserListResponse
 import com.ravimhzn.sampletestandroidapplication.utils.TopSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_frag_user_list.*
 
@@ -43,7 +45,6 @@ class FragmentUserList : MainBaseFragment(), UserListAdapter.Interaction {
     private fun setUpActionBar() {
         var actionBar = (activity as AppCompatActivity).supportActionBar
         actionBar?.setDisplayShowTitleEnabled(true)
-        actionBar?.setTitle("Hello world")
     }
 
     private fun initRecyclerView() {

@@ -16,4 +16,6 @@
 
     <color name="white">#FFFFFF</color>
     <color name="black">#0F1C1B</color>
+    <color name="blue_background">#4472c4</color>
+    <color name="orange_background">#FF5722</color>
 </resources>

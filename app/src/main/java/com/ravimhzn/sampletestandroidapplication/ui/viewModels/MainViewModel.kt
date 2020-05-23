@@ -1,6 +1,7 @@
 package com.ravimhzn.sampletestandroidapplication.ui.viewModels
 
 import androidx.lifecycle.LiveData
+import com.ravimhzn.sampletestandroidapplication.network.responses.AlbumListResponse
 import com.ravimhzn.sampletestandroidapplication.network.responses.UserListResponse
 import com.ravimhzn.sampletestandroidapplication.repository.MainRepository
 import com.ravimhzn.sampletestandroidapplication.ui.BaseViewModel
@@ -8,6 +9,7 @@ import com.ravimhzn.sampletestandroidapplication.ui.DataState
 import com.ravimhzn.sampletestandroidapplication.ui.state.MainStateEvent
 import com.ravimhzn.sampletestandroidapplication.ui.state.MainStateEvent.*
 import com.ravimhzn.sampletestandroidapplication.ui.state.MainViewState
+import com.ravimhzn.sampletestandroidapplication.ui.state.MainViewState.ViewPhotoDetails
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
@@ -40,41 +42,6 @@ class MainViewModel @Inject constructor(
             }
         }
     }
-
-
-    fun setUserList(userList: MainViewState.UserList) {
-        val update = getCurrentViewStateOrNew()
-        if (update.userList == userList) {
-            return
-        }
-        update.userList = userList
-        setViewState(update)
-    }
-
-
-    fun setPhotoAlbumList(photoAlbumnList: MainViewState.PhotoAlbumnList) {
-        val update = getCurrentViewStateOrNew()
-        if (update.photoAlbumnList == photoAlbumnList) {
-            return
-        }
-        update.photoAlbumnList = photoAlbumnList
-        setViewState(update)
-    }
-
-    fun setUserListResponse(userListResponse: UserListResponse) {
-        val update = getCurrentViewStateOrNew()
-        update.photoAlbumnList.userListResponse = userListResponse
-        setViewState(update)
-    }
-//
-//    fun setPhotoAlbumList(arrAlbumListResponse: List<AlbumListResponse>) {
-//        val update = getCurrentViewStateOrNew()
-//        if (update.photoAlbumnList == arrAlbumListResponse) {
-//            return
-//        }
-//        update.photoAlbumnList.arrPhotoAlbum = arrAlbumListResponse
-//        setViewState(update)
-//    }
 
     fun cancelActiveJobs() {
         mainRepository.cancelActiveJobs()

@@ -3,33 +3,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/default_margin"
     tools:context="com.ravimhzn.sampletestandroidapplication.ui.fragments.FragmentPictureDetails">
+
+    <TextView
+        android:id="@+id/tvAlbumnPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:text="@string/dummy_album_photo_id"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imgPhoto"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="64dp"
-        android:src="@mipmap/ic_launcher"
-        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        android:background="@color/orange_background"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAlbumnPhoto" />
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:id="@+id/tvImageText"
-            style="@style/DefaultText"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Image Text" />
-    </RelativeLayout>
+            android:background="@color/blue_background"
+            android:minHeight="64dp"
+            android:padding="@dimen/default_margin">
+
+            <TextView
+                android:id="@+id/tvImageText"
+                style="@style/DefaultText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Image Image Image Image Image Image Image Image Text" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

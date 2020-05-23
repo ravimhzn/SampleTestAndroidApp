@@ -8,5 +8,6 @@
     <string name="textSuccess">Success</string>
     <string name="textError">Error</string>
     <string name="user_info">User Info</string>
+    <string name="dummy_album_photo_id">Album ID: 1\n Photo ID: 1</string>
 
 </resources>
