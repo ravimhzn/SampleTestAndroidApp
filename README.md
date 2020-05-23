@@ -109,14 +109,13 @@ data class DataState<T>(
 }
 ```
 ### Single Source Of Truth Principle
-Single Source Of Truth: Each component might have its own state. View and Presenter/ViewModel are meant as the component here. Maintaining states separately at different levels might cause state conflicts. So to avoid these kinds of issues, the state is created at one level (Presenter/ViewModel) and passed to another level (View) in MVI. The only way to change the state is by firing an Interaction by the user. This kind of approach restricts any change to the State of the system only via a defined set of actions. An undefined action by a user cannot cause any undesired change to our System.
+Each component might have its own state. View and Presenter/ViewModel are meant as the component here. Maintaining states separately at different levels might cause state conflicts. So to avoid these kinds of issues, the state is created at one level (Presenter/ViewModel) and passed to another level (View) in MVI. The only way to change the state is by firing an Interaction by the user. This kind of approach restricts any change to the State of the system only via a defined set of actions. An undefined action by a user cannot cause any undesired change to our System.
 
 <img src="./images/single_source_of_truth.png">
 
 ## Gradle Configuration
 
-I wanted to structure my dependencies much effectively. Multi-module Android projects are now the recommended way to take advantages of performance improvements with Android Gradle Plugin 3+. Hence I followed an article by Sam Edwards on [Kotlin + buildSrc for Better Gradle Dependency Management](https://handstandsam.com/2018/02/11/kotlin-buildsrc-for-better-gradle-dependency-management/)
-You can find all my gradle dependencies under buildSrc Directory.
+I wanted to structure my dependencies much effectively. Multi-module Android projects are now the recommended way to take advantages of performance improvements with Android Gradle Plugin 3+. Hence I followed an article by Sam Edwards on [Kotlin + buildSrc for Better Gradle Dependency Management](https://handstandsam.com/2018/02/11/kotlin-buildsrc-for-better-gradle-dependency-management/). You can find all my gradle dependencies under buildSrc Directory.
 
 ## Libraries Used
 

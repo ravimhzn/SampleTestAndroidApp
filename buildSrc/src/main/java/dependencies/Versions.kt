@@ -32,5 +32,10 @@ object Versions {
     val androidx_test_ext = "1.1.1"
     val swipe_refresh_layout = "1.1.0-alpha03"
     val glide_version = "4.9.0"
+    val picasso = "2.71828"
     val recyclerview_version = "1.1.0-beta03"
+
+    val mockitoVersion = "3.2.0"
+    val mockitoKotlinVersion = "2.2.0"
+    val archTest = "2.1.0"
 }

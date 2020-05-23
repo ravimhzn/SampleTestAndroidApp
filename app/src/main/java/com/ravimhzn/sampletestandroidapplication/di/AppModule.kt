@@ -1,15 +1,10 @@
 package com.ravimhzn.sampletestandroidapplication.di
 
 
-import android.app.Application
-import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestManager
-import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.ravimhzn.sampletestandroidapplication.utils.LiveDataCallAdapterFactory
-import com.ravimhzn.sampletestandroidapplication.R
 import com.ravimhzn.sampletestandroidapplication.utils.Constants.Companion.BASE_URL
+import com.ravimhzn.sampletestandroidapplication.utils.LiveDataCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -31,22 +26,5 @@ class AppModule {
         .baseUrl(BASE_URL)
         .addCallAdapterFactory(LiveDataCallAdapterFactory())
         .addConverterFactory(GsonConverterFactory.create(gson))
-
-
-    @Singleton
-    @Provides
-    fun provideRequestOptions(): RequestOptions = RequestOptions
-        .placeholderOf(R.drawable.ic_launcher_background) //TODO("Change the icons later")
-        .error(R.mipmap.ic_launcher)
-
-
-    @Singleton
-    @Provides
-    fun provideGlideInstance(
-        application: Application,
-        requestOptions: RequestOptions
-    ): RequestManager =
-        Glide.with(application)
-            .setDefaultRequestOptions(requestOptions)
 }
 

@@ -13,4 +13,5 @@ object SupportDependencies {
     val recyclerView = "androidx.recyclerview:recyclerview:$recyclerview_version"
     val glide = "com.github.bumptech.glide:glide:${Versions.glide_version}"
     val glide_compiler = "com.github.bumptech.glide:compiler:${Versions.glide_version}"
+    val picasso = "com.squareup.picasso:picasso:${Versions.picasso}"
 }

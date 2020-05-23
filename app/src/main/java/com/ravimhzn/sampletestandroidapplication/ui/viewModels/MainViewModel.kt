@@ -1,19 +1,16 @@
 package com.ravimhzn.sampletestandroidapplication.ui.viewModels
 
 import androidx.lifecycle.LiveData
-import com.ravimhzn.sampletestandroidapplication.network.responses.AlbumListResponse
-import com.ravimhzn.sampletestandroidapplication.network.responses.UserListResponse
-import com.ravimhzn.sampletestandroidapplication.repository.MainRepository
+import com.ravimhzn.sampletestandroidapplication.repository.MainRepositoryImpl
 import com.ravimhzn.sampletestandroidapplication.ui.BaseViewModel
 import com.ravimhzn.sampletestandroidapplication.ui.DataState
 import com.ravimhzn.sampletestandroidapplication.ui.state.MainStateEvent
 import com.ravimhzn.sampletestandroidapplication.ui.state.MainStateEvent.*
 import com.ravimhzn.sampletestandroidapplication.ui.state.MainViewState
-import com.ravimhzn.sampletestandroidapplication.ui.state.MainViewState.ViewPhotoDetails
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-    private val mainRepository: MainRepository
+    private val mainRepository: MainRepositoryImpl
 ) : BaseViewModel<MainStateEvent, MainViewState>() {
 
     override fun initNewViewState(): MainViewState {
@@ -56,6 +53,4 @@ class MainViewModel @Inject constructor(
         super.onCleared()
         cancelActiveJobs()
     }
-
-
 }

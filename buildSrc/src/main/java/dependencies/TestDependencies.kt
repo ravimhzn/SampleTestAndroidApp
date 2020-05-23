@@ -7,4 +7,7 @@ object TestDependencies {
     val jupiter_engine = "org.junit.jupiter:junit-jupiter-engine:${Versions.junit_jupiter_version}"
     val mockk = "io.mockk:mockk:${Versions.mockk_version}"
     val junit4 = "junit:junit:${Versions.junit_4_version}"
+    val mockito = "org.mockito:mockito-core:${Versions.mockitoVersion}"
+    val mockito_kotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockitoKotlinVersion}"
+    val arch_core_test = "androidx.arch.core:core-testing:${Versions.archTest}"
 }

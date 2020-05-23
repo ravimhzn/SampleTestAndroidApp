@@ -46,7 +46,6 @@ class FragmentPictureList : MainBaseFragment(), PhotoListAdapter.Interaction,
             removeItemDecoration(topSpacingDecorator) // does nothing if not applied already
             addItemDecoration(topSpacingDecorator)
             recyclerAdapter = PhotoListAdapter(
-                requestManager = requestManager,
                 interaction = this@FragmentPictureList
             )
             adapter = recyclerAdapter

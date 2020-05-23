@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.bumptech.glide.RequestManager
 import com.ravimhzn.sampletestandroidapplication.di.ViewModelProviderFactory
 import com.ravimhzn.sampletestandroidapplication.ui.DataStateChangeListener
 import com.ravimhzn.sampletestandroidapplication.ui.viewModels.MainViewModel
@@ -24,9 +23,6 @@ open class MainBaseFragment : DaggerFragment() {
     lateinit var providerFactory: ViewModelProviderFactory
 
     lateinit var viewModel: MainViewModel
-
-    @Inject
-    lateinit var requestManager: RequestManager //For Glide
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

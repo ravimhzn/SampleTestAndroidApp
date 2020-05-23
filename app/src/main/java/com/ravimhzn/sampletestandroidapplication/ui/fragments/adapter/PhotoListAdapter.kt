@@ -6,14 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.RequestManager
 import com.ravimhzn.sampletestandroidapplication.R
 import com.ravimhzn.sampletestandroidapplication.network.responses.AlbumListResponse
 import com.ravimhzn.sampletestandroidapplication.utils.extension.setImageUrl
 import kotlinx.android.synthetic.main.layout_image_list.view.*
 
 class PhotoListAdapter(
-    private val requestManager: RequestManager,
     private val interaction: Interaction? = null
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -46,8 +44,7 @@ class PhotoListAdapter(
                 parent,
                 false
             ),
-            interaction = interaction,
-            requestManager = requestManager
+            interaction = interaction
         )
     }
 
@@ -70,8 +67,7 @@ class PhotoListAdapter(
     class PhotoListViewHolder
     constructor(
         itemView: View,
-        private val interaction: Interaction?,
-        private val requestManager: RequestManager
+        private val interaction: Interaction?
     ) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(item: AlbumListResponse) = with(itemView) {
