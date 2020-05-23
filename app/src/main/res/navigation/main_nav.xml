@@ -21,9 +21,9 @@
     </fragment>
 
     <fragment
-        android:label="{title}"
         android:id="@+id/fragmentPictureList"
         android:name="com.ravimhzn.sampletestandroidapplication.ui.fragments.FragmentPictureList"
+        android:label="{title}"
         tools:layout="@layout/fragment_picture_list">
 
         <argument
@@ -42,5 +42,10 @@
     <fragment
         android:id="@+id/fragmentPictureDetails"
         android:name="com.ravimhzn.sampletestandroidapplication.ui.fragments.FragmentPictureDetails"
-        tools:layout="@layout/fragment_picture_details" />
+        android:label="{title}"
+        tools:layout="@layout/fragment_picture_details">
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
 </navigation>

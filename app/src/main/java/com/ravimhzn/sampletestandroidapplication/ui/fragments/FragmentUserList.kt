@@ -5,11 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ravimhzn.sampletestandroidapplication.R
 import com.ravimhzn.sampletestandroidapplication.network.responses.UserListResponse
 import com.ravimhzn.sampletestandroidapplication.ui.fragments.adapter.UserListAdapter
@@ -22,7 +22,8 @@ import kotlinx.android.synthetic.main.fragment_frag_user_list.*
 /**
  * A simple [Fragment] subclass.
  */
-class FragmentUserList : MainBaseFragment(), UserListAdapter.Interaction {
+class FragmentUserList : MainBaseFragment(), UserListAdapter.Interaction,
+    SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var recyclerAdapter: UserListAdapter
 
@@ -37,6 +38,7 @@ class FragmentUserList : MainBaseFragment(), UserListAdapter.Interaction {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.setStateEvent(MainStateEvent.GetUserListEvent()) //Fire the stateEvent
+        swipeRefresh.setOnRefreshListener(this)
         initRecyclerView()
         subscribeObservers()
     }
@@ -97,5 +99,17 @@ class FragmentUserList : MainBaseFragment(), UserListAdapter.Interaction {
             ) //should match the name of label on nav_graph
         }
         findNavController().navigate(R.id.action_fragmentUserList_to_fragmentPictureList, bundle)
+    }
+
+    override fun onRefresh() {
+        resetUI()
+        swipeRefresh.isRefreshing = false
+    }
+
+    private fun resetUI() {
+        /**
+         * We can make network call on it but gonna leave it as it is.
+         */
+        recyclerView.smoothScrollToPosition(0)
     }
 }

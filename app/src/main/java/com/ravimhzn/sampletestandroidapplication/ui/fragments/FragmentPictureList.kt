@@ -9,18 +9,18 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ravimhzn.sampletestandroidapplication.R
 import com.ravimhzn.sampletestandroidapplication.network.responses.AlbumListResponse
-import com.ravimhzn.sampletestandroidapplication.ui.MainActivity
 import com.ravimhzn.sampletestandroidapplication.ui.fragments.adapter.PhotoListAdapter
 import com.ravimhzn.sampletestandroidapplication.ui.state.MainStateEvent
 import com.ravimhzn.sampletestandroidapplication.ui.state.setAlbumListResponse
 import com.ravimhzn.sampletestandroidapplication.ui.state.setPhotoAlbumList
 import com.ravimhzn.sampletestandroidapplication.utils.TopSpacingItemDecoration
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_frag_user_list.*
 
-class FragmentPictureList : MainBaseFragment(), PhotoListAdapter.Interaction {
+class FragmentPictureList : MainBaseFragment(), PhotoListAdapter.Interaction,
+    SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var recyclerAdapter: PhotoListAdapter
 
@@ -34,6 +34,7 @@ class FragmentPictureList : MainBaseFragment(), PhotoListAdapter.Interaction {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        swipeRefresh.setOnRefreshListener(this)
         initRecyclerView()
         subscribeObservers()
     }
@@ -82,10 +83,27 @@ class FragmentPictureList : MainBaseFragment(), PhotoListAdapter.Interaction {
 
     override fun onItemSelected(position: Int, item: AlbumListResponse) {
         viewModel.setAlbumListResponse(item)
-        findNavController().navigate(R.id.action_fragmentPictureList_to_fragmentPictureDetails)
+        var bundle = Bundle()
+        bundle.putString("title", "")
+        findNavController().navigate(
+            R.id.action_fragmentPictureList_to_fragmentPictureDetails,
+            bundle
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onRefresh() {
+        resetUI()
+        swipeRefresh.isRefreshing = false
+    }
+
+    private fun resetUI() {
+        /**
+         * We can make network call on it but gonna leave it as it is.
+         */
+        recyclerView.smoothScrollToPosition(0)
     }
 }
