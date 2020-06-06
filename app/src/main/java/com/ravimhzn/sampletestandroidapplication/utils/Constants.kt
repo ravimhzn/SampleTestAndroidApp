@@ -6,10 +6,15 @@ class Constants {
         const val PREFIX_USERS = "/users"
         const val PREFIX_PHOTOS = "/photos"
 
+        const val TESTING_CACHE_DELAY = 0L // fake cache delay for testing
+        const val PAGINATION_PAGE_SIZE = 10
+        const val UNKNOWN_ERROR = "Unknown error"
+
+        //Network Related..
+        const val NETWORK_ERROR = "Network error"
+        const val NETWORK_ERROR_TIMEOUT = "Network timeout"
         const val NETWORK_TIMEOUT = 6000L //Will timeout our network if it takes more than 6 seconds
         const val TESTING_NETWORK_DELAY = 0L // fake network delay for testing
-        const val TESTING_CACHE_DELAY = 0L // fake cache delay for testing
-
-        const val PAGINATION_PAGE_SIZE = 10
+        const val NETWORK_DELAY = 1000L // ms (Fake network delay to make app more realistic)
     }
 }

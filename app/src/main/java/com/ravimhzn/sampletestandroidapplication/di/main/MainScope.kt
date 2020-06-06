@@ -1,4 +1,4 @@
-package com.ravimhzn.sampletestandroidapplication.ui.di
+package com.ravimhzn.sampletestandroidapplication.di.main
 
 import javax.inject.Scope
 
