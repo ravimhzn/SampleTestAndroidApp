@@ -10,6 +10,9 @@ class Constants {
         const val PAGINATION_PAGE_SIZE = 10
         const val UNKNOWN_ERROR = "Unknown error"
 
+        const val TAG = "AppDebug" // Tag for logs
+        const val DEBUG = true // enable logging
+
         //Network Related..
         const val NETWORK_ERROR = "Network error"
         const val NETWORK_ERROR_TIMEOUT = "Network timeout"

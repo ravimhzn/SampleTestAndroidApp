@@ -10,13 +10,16 @@ const val MAIN_VIEW_STATE_BUNDLE_KEY =
 @Parcelize
 data class MainViewStateTest(
 
+    var activeJobCounter: HashSet<String> = HashSet(),
+
     var fragmentUserList: FragmentUserList = FragmentUserList()
 
 ) : Parcelable {
 
     @Parcelize
     data class FragmentUserList(
-        var arrUserList: List<UserListResponse>? = null
+        var arrUserList: List<UserListResponse>? = null,
+        var layoutManagerState: Parcelable? = null
     ) : Parcelable
 
 }
