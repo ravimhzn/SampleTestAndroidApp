@@ -136,6 +136,12 @@ constructor(
         return value
     }
 
+    fun clearActiveJobCounter(){
+        val update = getCurrentViewStateOrNew()
+        update.activeJobCounter.clear()
+        setViewState(update)
+    }
+
     fun getLayoutManagerState(): Parcelable? {
         val viewState = getCurrentViewStateOrNew()
         return viewState.fragmentUserList.layoutManagerState
