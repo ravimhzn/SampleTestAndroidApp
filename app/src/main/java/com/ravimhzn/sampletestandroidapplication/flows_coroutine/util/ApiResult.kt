@@ -1,4 +1,4 @@
-package com.ravimhzn.sampletestandroidapplication.utils
+package com.ravimhzn.sampletestandroidapplication.flows_coroutine.util
 
 /**
  * Reference: https://medium.com/@douglas.iacovelli/how-to-handle-errors-with-retrofit-and-coroutines-33e7492a912

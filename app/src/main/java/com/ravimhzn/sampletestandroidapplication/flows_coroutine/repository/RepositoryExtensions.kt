@@ -1,6 +1,6 @@
-package com.ravimhzn.sampletestandroidapplication.repository
+package com.ravimhzn.sampletestandroidapplication.flows_coroutine.repository
 
-import com.ravimhzn.sampletestandroidapplication.utils.ApiResult
+import com.ravimhzn.sampletestandroidapplication.flows_coroutine.util.ApiResult
 import com.ravimhzn.sampletestandroidapplication.utils.Constants.Companion.NETWORK_DELAY
 import com.ravimhzn.sampletestandroidapplication.utils.Constants.Companion.NETWORK_ERROR_TIMEOUT
 import com.ravimhzn.sampletestandroidapplication.utils.Constants.Companion.NETWORK_TIMEOUT
@@ -36,7 +36,10 @@ suspend fun <T> safeApiCall(
                 }
                 is HttpException -> {
                     val code = throwable.code()
-                    val errorResponse = convertErrorBody(throwable)
+                    val errorResponse =
+                        convertErrorBody(
+                            throwable
+                        )
                     ApiResult.GenericError(
                         code,
                         errorResponse
