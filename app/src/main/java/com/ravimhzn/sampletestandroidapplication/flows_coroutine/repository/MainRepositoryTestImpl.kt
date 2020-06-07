@@ -5,9 +5,7 @@ import com.ravimhzn.sampletestandroidapplication.flows_coroutine.ui.viewmodels.s
 import com.ravimhzn.sampletestandroidapplication.flows_coroutine.util.ApiResponseHandler
 import com.ravimhzn.sampletestandroidapplication.flows_coroutine.util.DataStateTest
 import com.ravimhzn.sampletestandroidapplication.flows_coroutine.util.StateEvent
-import com.ravimhzn.sampletestandroidapplication.network.responses.UserListResponse
-import com.ravimhzn.sampletestandroidapplication.ui.DataState
-import com.ravimhzn.sampletestandroidapplication.ui.state.MainViewState
+import com.ravimhzn.sampletestandroidapplication.flows_coroutine.model.UserListResponse
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

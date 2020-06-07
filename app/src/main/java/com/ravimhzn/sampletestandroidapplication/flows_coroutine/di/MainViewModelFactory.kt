@@ -1,11 +1,14 @@
-package com.ravimhzn.sampletestandroidapplication.di
+package com.ravimhzn.sampletestandroidapplication.flows_coroutine.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
 import javax.inject.Provider
+import javax.inject.Singleton
 
-class ViewModelProviderFactory
+/* classic Map Multibinding for providing ViewModels through Factory */
+@Singleton
+class MainViewModelFactory
 @Inject
 constructor(
     private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
@@ -21,6 +24,5 @@ constructor(
         } catch (e: Exception) {
             throw RuntimeException(e)
         }
-
     }
 }

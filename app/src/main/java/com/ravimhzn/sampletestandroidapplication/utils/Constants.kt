@@ -2,10 +2,6 @@ package com.ravimhzn.sampletestandroidapplication.utils
 
 class Constants {
     companion object {
-        const val BASE_URL = "https://jsonplaceholder.typicode.com"
-        const val PREFIX_USERS = "/users"
-        const val PREFIX_PHOTOS = "/photos"
-
         const val TESTING_CACHE_DELAY = 0L // fake cache delay for testing
         const val PAGINATION_PAGE_SIZE = 10
         const val UNKNOWN_ERROR = "Unknown error"

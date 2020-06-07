@@ -10,5 +10,6 @@
     <string name="user_info">User Info</string>
     <string name="dummy_album_photo_id">Album ID: 1\n Photo ID: 1</string>
     <string name="text_error">Error</string>
+    <string name="no_list_data">There\'s is no list to display here</string>
 
 </resources>

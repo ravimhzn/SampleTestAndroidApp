@@ -1,4 +1,4 @@
-package com.ravimhzn.sampletestandroidapplication.network.responses
+package com.ravimhzn.sampletestandroidapplication.flows_coroutine.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

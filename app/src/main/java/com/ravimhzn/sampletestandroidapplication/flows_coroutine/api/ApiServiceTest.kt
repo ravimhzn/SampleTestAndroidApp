@@ -1,18 +1,20 @@
 package com.ravimhzn.sampletestandroidapplication.flows_coroutine.api
 
-import androidx.lifecycle.LiveData
-import com.ravimhzn.sampletestandroidapplication.network.responses.AlbumListResponse
-import com.ravimhzn.sampletestandroidapplication.network.responses.UserListResponse
-import com.ravimhzn.sampletestandroidapplication.utils.Constants
-import com.ravimhzn.sampletestandroidapplication.utils.GenericApiResponse
-import org.intellij.lang.annotations.Flow
+import com.ravimhzn.sampletestandroidapplication.flows_coroutine.model.AlbumListResponse
+import com.ravimhzn.sampletestandroidapplication.flows_coroutine.model.UserListResponse
 import retrofit2.http.GET
 
 interface ApiServiceTest {
 
-    @GET(Constants.PREFIX_USERS)
+    @GET(PREFIX_USERS)
     suspend fun getUserList(): List<UserListResponse>
 
-    @GET(Constants.PREFIX_PHOTOS)
+    @GET(PREFIX_PHOTOS)
     suspend fun getPhotoAlbum(): List<AlbumListResponse>
+
+    companion object {
+        const val BASE_URL = "https://jsonplaceholder.typicode.com"
+        const val PREFIX_USERS = "/users"
+        const val PREFIX_PHOTOS = "/photos"
+    }
 }

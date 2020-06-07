@@ -15,6 +15,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 
+@InternalCoroutinesApi
 abstract class NetworkBoundResource<ResponseObject, ViewStateType>
     (
     isNetworkAvailable: Boolean, // is their a network connection?
@@ -124,8 +125,6 @@ abstract class NetworkBoundResource<ResponseObject, ViewStateType>
         result.value = dataState
     }
 
-
-    @OptIn(InternalCoroutinesApi::class)
     private fun initNewJob(): Job {
         Log.d(TAG, "initNewJob: called.")
         job = Job() // create new job

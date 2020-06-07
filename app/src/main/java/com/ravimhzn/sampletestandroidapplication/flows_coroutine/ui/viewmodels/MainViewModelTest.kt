@@ -10,7 +10,7 @@ import com.ravimhzn.sampletestandroidapplication.flows_coroutine.ui.viewmodels.s
 import com.ravimhzn.sampletestandroidapplication.flows_coroutine.ui.viewmodels.state.MainStateEventTest.GetUserListEvent
 import com.ravimhzn.sampletestandroidapplication.flows_coroutine.ui.viewmodels.state.MainViewStateTest
 import com.ravimhzn.sampletestandroidapplication.flows_coroutine.util.*
-import com.ravimhzn.sampletestandroidapplication.network.responses.UserListResponse
+import com.ravimhzn.sampletestandroidapplication.flows_coroutine.model.UserListResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
-@FlowPreview
+@UseExperimental(FlowPreview::class)
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
 class MainViewModelTest
@@ -84,10 +84,11 @@ constructor(
         }
     }
 
-    //**********SETTERS STARTS*************//
+    //Setters
     fun setViewState(viewState: MainViewStateTest) {
         _viewState.value = viewState
     }
+
     private fun setUserListData(userList: List<UserListResponse>) {
         val update = getCurrentViewStateOrNew()
         update.fragmentUserList.arrUserList = userList
@@ -125,10 +126,7 @@ constructor(
         setViewState(update)
     }
 
-    //**********SETTERS ENDS*************//
-
-
-    //**********GETTERS STARTS*************//
+    //Getters
     fun getCurrentViewStateOrNew(): MainViewStateTest {
         val value = viewState.value?.let {
             it
@@ -136,7 +134,7 @@ constructor(
         return value
     }
 
-    fun clearActiveJobCounter(){
+    fun clearActiveJobCounter() {
         val update = getCurrentViewStateOrNew()
         update.activeJobCounter.clear()
         setViewState(update)
@@ -147,14 +145,12 @@ constructor(
         return viewState.fragmentUserList.layoutManagerState
     }
 
-    fun areAnyJobsActive(): Boolean{
+    fun areAnyJobsActive(): Boolean {
         val viewState = getCurrentViewStateOrNew()
         return viewState.activeJobCounter.size > 0
     }
-    //**********GETTERS ENDS*************//
 
-    //************** SUPPORTING FUNCTION STARTS **************//
-
+    //Supporting functions
     private fun launchJob(
         stateEvent: StateEvent,
         jobFunction: Flow<DataStateTest<MainViewStateTest>>
@@ -185,6 +181,4 @@ constructor(
         val viewState = getCurrentViewStateOrNew()
         return viewState.activeJobCounter.contains(stateEventName)
     }
-
-    //************** SUPPORTING FUNCTION ENDS **************//
 }

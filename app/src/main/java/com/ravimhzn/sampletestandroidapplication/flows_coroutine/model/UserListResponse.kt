@@ -1,4 +1,4 @@
-package com.ravimhzn.sampletestandroidapplication.network.responses
+package com.ravimhzn.sampletestandroidapplication.flows_coroutine.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.Expose

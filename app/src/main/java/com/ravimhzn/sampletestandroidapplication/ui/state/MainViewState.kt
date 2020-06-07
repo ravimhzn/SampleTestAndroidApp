@@ -1,7 +1,7 @@
 package com.ravimhzn.sampletestandroidapplication.ui.state
 
-import com.ravimhzn.sampletestandroidapplication.network.responses.AlbumListResponse
-import com.ravimhzn.sampletestandroidapplication.network.responses.UserListResponse
+import com.ravimhzn.sampletestandroidapplication.flows_coroutine.model.AlbumListResponse
+import com.ravimhzn.sampletestandroidapplication.flows_coroutine.model.UserListResponse
 
 data class MainViewState(
     var userList: UserList = UserList(),
