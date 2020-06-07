@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ravimhzn.sampletestandroidapplication.R
-import com.ravimhzn.sampletestandroidapplication.flows_coroutine.model.AlbumListResponse
+import com.ravimhzn.sampletestandroidapplication.model.AlbumListResponse
 import com.ravimhzn.sampletestandroidapplication.utils.extension.setImageUrl
 import kotlinx.android.synthetic.main.layout_image_list.view.*
 

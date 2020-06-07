@@ -1,20 +1,26 @@
 package com.ravimhzn.sampletestandroidapplication.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.codingwithmitch.espressodaggerexamples.ui.viewmodel.getCurrentViewStateOrNew
+import com.codingwithmitch.espressodaggerexamples.ui.viewmodel.getLayoutManagerState
 import com.ravimhzn.sampletestandroidapplication.R
-import com.ravimhzn.sampletestandroidapplication.flows_coroutine.ui.UICommunicationListener
-import com.ravimhzn.sampletestandroidapplication.flows_coroutine.ui.viewmodels.MainViewModelTest
-import com.ravimhzn.sampletestandroidapplication.flows_coroutine.ui.viewmodels.state.MainStateEventTest.GetUserListEvent
-import com.ravimhzn.sampletestandroidapplication.flows_coroutine.ui.viewmodels.state.MainViewStateTest
-import com.ravimhzn.sampletestandroidapplication.flows_coroutine.model.UserListResponse
+import com.ravimhzn.sampletestandroidapplication.model.UserListResponse
+import com.ravimhzn.sampletestandroidapplication.ui.UICommunicationListener
 import com.ravimhzn.sampletestandroidapplication.ui.fragments.adapter.UserListAdapter
+import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.MainViewModel
+import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.setLayoutManagerState
+import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.state.MainStateEvent.GetUserListEvent
+import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.state.MainViewState
 import com.ravimhzn.sampletestandroidapplication.utils.TopSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_frag_user_list.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -36,14 +42,14 @@ class FragmentUserList(
 
     private lateinit var recyclerAdapter: UserListAdapter
 
-    val viewModel: MainViewModelTest by activityViewModels {
+    val viewModel: MainViewModel by activityViewModels {
         viewModelFactory
     }
 
-    val observer: Observer<MainViewStateTest> = Observer { viewState ->
-        if(viewState != null){
+    val observer: Observer<MainViewState> = Observer { viewState ->
+        if (viewState != null) {
 
-            viewState.fragmentUserList.let{ view ->
+            viewState.fragmentUserList.let { view ->
                 view.arrUserList?.let { userList ->
                     recyclerAdapter.apply {
                         submitList(userList)
@@ -87,11 +93,10 @@ class FragmentUserList(
         }
     }
 
-    private fun displayTheresNothingHereTV(isDataAvailable: Boolean){
-        if(isDataAvailable){
+    private fun displayTheresNothingHereTV(isDataAvailable: Boolean) {
+        if (isDataAvailable) {
             no_data_textview.visibility = View.GONE
-        }
-        else{
+        } else {
             no_data_textview.visibility = View.VISIBLE
         }
     }
@@ -112,7 +117,7 @@ class FragmentUserList(
             null   // clear references otherwise it can leak memory -> I have No idea how
     }
 
-    private fun saveLayoutManagerState(){
+    private fun saveLayoutManagerState() {
         recyclerView.layoutManager?.onSaveInstanceState()?.let { lmState ->
             viewModel.setLayoutManagerState(lmState)
         }
@@ -131,14 +136,24 @@ class FragmentUserList(
     override fun onItemSelected(position: Int, item: UserListResponse) {
 //        Log.d(TAG, "onItemSelected: $item")
 //        viewModel.setUserListResponse(item)
-//        var bundle = Bundle()
-//        item.id?.let {
-//            bundle.putString(
-//                "title",
-//                "Albumn ID: $it"
-//            ) //should match the name of label on nav_graph
-//        }
-//        findNavController().navigate(R.id.action_fragmentUserList_to_fragmentPictureList, bundle)
+        var bundle = Bundle()
+        item.id?.let {
+            bundle.putString(
+                "title",
+                "Albumn ID: $it"
+            ) //should match the name of label on nav_graph
+        }
+        findNavController().navigate(R.id.action_fragmentUserList_to_fragmentPictureList, bundle)
     }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            uiCommunicationListener = (context as UICommunicationListener)
+        } catch (e: Exception) {
+            Log.e(CLASS_NAME, "$context must implement UICommunicationListener")
+        }
+    }
+
 
 }

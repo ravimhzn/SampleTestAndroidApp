@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ravimhzn.sampletestandroidapplication.R
-import com.ravimhzn.sampletestandroidapplication.flows_coroutine.model.UserListResponse
+import com.ravimhzn.sampletestandroidapplication.model.UserListResponse
 import kotlinx.android.synthetic.main.layout_user_list_item.view.*
 
 class UserListAdapter(private val interaction: Interaction? = null) :

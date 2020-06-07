@@ -1,6 +1,7 @@
 package com.ravimhzn.sampletestandroidapplication.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
@@ -10,18 +11,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.afollestad.materialdialogs.MaterialDialog
+import com.codingwithmitch.espressodaggerexamples.ui.viewmodel.areAnyJobsActive
+import com.codingwithmitch.espressodaggerexamples.ui.viewmodel.getCurrentViewStateOrNew
 import com.google.android.material.appbar.AppBarLayout
 import com.ravimhzn.sampletestandroidapplication.R
-import com.ravimhzn.sampletestandroidapplication.flows_coroutine.di.BaseApplication
-import com.ravimhzn.sampletestandroidapplication.flows_coroutine.ui.ErrorDialogCallback
-import com.ravimhzn.sampletestandroidapplication.flows_coroutine.ui.UICommunicationListener
-import com.ravimhzn.sampletestandroidapplication.flows_coroutine.ui.displayErrorDialog
-import com.ravimhzn.sampletestandroidapplication.flows_coroutine.ui.viewmodels.MainViewModelTest
-import com.ravimhzn.sampletestandroidapplication.flows_coroutine.ui.viewmodels.state.MAIN_VIEW_STATE_BUNDLE_KEY
-import com.ravimhzn.sampletestandroidapplication.flows_coroutine.ui.viewmodels.state.MainViewStateTest
-import com.ravimhzn.sampletestandroidapplication.flows_coroutine.util.ERROR_STACK_BUNDLE_KEY
-import com.ravimhzn.sampletestandroidapplication.flows_coroutine.util.ErrorStack
-import com.ravimhzn.sampletestandroidapplication.flows_coroutine.util.ErrorState
+import com.ravimhzn.sampletestandroidapplication.di.BaseApplication
+import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.MainViewModel
+import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.clearActiveJobCounter
+import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.clearError
+import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.setErrorStack
+import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.state.MAIN_VIEW_STATE_BUNDLE_KEY
+import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.state.MainViewState
+import com.ravimhzn.sampletestandroidapplication.utils.ERROR_STACK_BUNDLE_KEY
+import com.ravimhzn.sampletestandroidapplication.utils.ErrorStack
+import com.ravimhzn.sampletestandroidapplication.utils.ErrorState
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -29,14 +32,15 @@ import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
-class MainActivity : AppCompatActivity(), UICommunicationListener {
+class MainActivity : AppCompatActivity(),
+    UICommunicationListener {
 
     private val TAG = "AppDebug ->"
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    val viewModel: MainViewModelTest by viewModels {
+    val viewModel: MainViewModel by viewModels {
         viewModelFactory
     }
 
@@ -51,8 +55,7 @@ class MainActivity : AppCompatActivity(), UICommunicationListener {
         setContentView(R.layout.activity_main)
         setupActionBar()
         subscribeObservers()
-
-//        restoreInstanceState(savedInstanceState)
+        restoreInstanceState(savedInstanceState)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -70,11 +73,12 @@ class MainActivity : AppCompatActivity(), UICommunicationListener {
 
     private fun restoreInstanceState(savedInstanceState: Bundle?) {
         savedInstanceState?.let { inState ->
-            (inState[MAIN_VIEW_STATE_BUNDLE_KEY] as MainViewStateTest?)?.let { viewState ->
+            (inState[MAIN_VIEW_STATE_BUNDLE_KEY] as MainViewState?)?.let { viewState ->
                 viewModel.setViewState(viewState)
             }
             (inState[ERROR_STACK_BUNDLE_KEY] as ArrayList<ErrorState>?)?.let { stack ->
-                val errorStack = ErrorStack()
+                val errorStack =
+                    ErrorStack()
                 errorStack.addAll(stack)
                 viewModel.setErrorStack(errorStack)
             }
@@ -112,7 +116,8 @@ class MainActivity : AppCompatActivity(), UICommunicationListener {
             dialogs.put(
                 key = errorState.message,
                 value = displayErrorDialog(errorState.message,
-                    object : ErrorDialogCallback {
+                    object :
+                        ErrorDialogCallback {
                         override fun clearError() {
                             viewModel.clearError(0)
                         }
@@ -124,8 +129,10 @@ class MainActivity : AppCompatActivity(), UICommunicationListener {
     override fun displayMainProgressBar(isLoading: Boolean) {
         if (isLoading) {
             progress_bar.visibility = View.VISIBLE
+            Log.d(TAG, "PROGRESSBAR: OPEN")
         } else {
             progress_bar.visibility = View.GONE
+            Log.d(TAG, "PROGRESSBAR: CLOSED")
         }
     }
 
