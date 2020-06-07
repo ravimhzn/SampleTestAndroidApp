@@ -2,8 +2,8 @@ package com.ravimhzn.sampletestandroidapplication.di
 
 
 import com.ravimhzn.sampletestandroidapplication.api.ApiService
-import com.ravimhzn.sampletestandroidapplication.repository.MainRepositoryTest
-import com.ravimhzn.sampletestandroidapplication.repository.MainRepositoryTestImpl
+import com.ravimhzn.sampletestandroidapplication.repository.MainRepository
+import com.ravimhzn.sampletestandroidapplication.repository.MainRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -25,8 +25,8 @@ object RepositoryModule {
     @JvmStatic
     @Singleton
     @Provides
-    fun provideMainRepository(apiService: ApiService): MainRepositoryTest {
-        return MainRepositoryTestImpl(
+    fun provideMainRepository(apiService: ApiService): MainRepository {
+        return MainRepositoryImpl(
             apiService
         )
     }

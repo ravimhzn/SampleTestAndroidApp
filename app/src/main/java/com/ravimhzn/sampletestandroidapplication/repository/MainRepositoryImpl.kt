@@ -13,9 +13,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MainRepositoryTestImpl @Inject constructor(
+class MainRepositoryImpl @Inject constructor(
     private val apiService: ApiService
-) : MainRepositoryTest {
+) : MainRepository {
     override fun getUserListFromServer(stateEvent: StateEvent): Flow<DataState<MainViewState>> =
         flow {
             val response =

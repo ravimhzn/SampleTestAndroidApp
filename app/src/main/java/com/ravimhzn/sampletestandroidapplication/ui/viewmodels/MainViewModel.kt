@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codingwithmitch.espressodaggerexamples.ui.viewmodel.isJobAlreadyActive
-import com.ravimhzn.sampletestandroidapplication.repository.MainRepositoryTest
+import com.ravimhzn.sampletestandroidapplication.repository.MainRepository
 import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.state.MainStateEvent
 import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.state.MainStateEvent.GetUserListEvent
 import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.state.MainViewState
@@ -29,7 +29,7 @@ import javax.inject.Inject
 class MainViewModel
 @Inject
 constructor(
-    private val mainRepository: MainRepositoryTest
+    private val mainRepository: MainRepository
 ) : ViewModel() {
 
 

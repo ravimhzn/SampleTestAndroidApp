@@ -5,7 +5,7 @@ import com.ravimhzn.sampletestandroidapplication.utils.DataState
 import com.ravimhzn.sampletestandroidapplication.utils.StateEvent
 import kotlinx.coroutines.flow.Flow
 
-interface MainRepositoryTest {
+interface MainRepository {
 
     fun getUserListFromServer(stateEvent: StateEvent): Flow<DataState<MainViewState>>
 }
