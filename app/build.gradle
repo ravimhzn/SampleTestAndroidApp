@@ -79,8 +79,7 @@ dependencies {
     //Dagger Google Dependencies
     implementation Dependencies.dagger
     kapt Dependencies.dagger_compiler
-    def dagger_version = "2.25.4"
-    kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
+    kaptAndroidTest Dependencies.dagger_compiler
 
     //Material Design
     implementation Dependencies.material_dialogs
@@ -92,6 +91,8 @@ dependencies {
     implementation SupportDependencies.cardLayout
     implementation SupportDependencies.recyclerView
     implementation SupportDependencies.picasso
+    implementation SupportDependencies.glide
+    kapt SupportDependencies.glide_compiler
 
     //Unit Test
     testImplementation TestDependencies.mockito
@@ -101,9 +102,4 @@ dependencies {
     testImplementation TestDependencies.jupiter_params
     testImplementation TestDependencies.junit4
     testRuntimeOnly TestDependencies.jupiter_engine
-
-    //glide
-    def glide_version = "4.9.0"
-    implementation "com.github.bumptech.glide:glide:$glide_version"
-    kapt "com.github.bumptech.glide:compiler:$glide_version"
 }

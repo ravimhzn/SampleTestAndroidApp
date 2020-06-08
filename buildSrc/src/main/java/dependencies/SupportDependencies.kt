@@ -1,5 +1,6 @@
 package dependencies
 
+import dependencies.Versions.glide_version
 import dependencies.Versions.recyclerview_version
 
 object SupportDependencies {
@@ -14,4 +15,10 @@ object SupportDependencies {
     val glide = "com.github.bumptech.glide:glide:${Versions.glide_version}"
     val glide_compiler = "com.github.bumptech.glide:compiler:${Versions.glide_version}"
     val picasso = "com.squareup.picasso:picasso:${Versions.picasso}"
+    /**
+     *     def glide_version = "4.9.0"
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
+     */
+
 }

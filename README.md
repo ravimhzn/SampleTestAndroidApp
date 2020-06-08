@@ -46,63 +46,91 @@ To read more about MVI, why it's a good architecture and how it solves the state
 
 Sample STATEEVENT used on this project:
 ```aidl
-sealed class MainStateEvent {
+sealed class MainStateEvent :
+    StateEvent {
 
-    class GetUserListEvent() : MainStateEvent()
+    class GetUserListEvent() : MainStateEvent() {
+        override fun errorInfo(): String {
+            return "Unable to retrieve all user lists"
+        }
 
-    data class GetPhotoAlbumListEvent(val id: Int) : MainStateEvent()
+        override fun toString(): String {
+            return "GetUserListEvent"
+        }
+    }
 
-    class None() : MainStateEvent()
+    class GetPictureList(val id: Int) : MainStateEvent() {
+        override fun errorInfo(): String {
+            return "Unable to retrieve picture lists"
+        }
+
+        override fun toString(): String {
+            return "GetPictureList"
+        }
+    }
 }
 ```
 Sample VIEWSTATE used on this project:
 ```aidl
+@Parcelize
 data class MainViewState(
-    var userList: UserList = UserList(),
-    var photoAlbumnList: PhotoAlbumnList = PhotoAlbumnList(),
-    var viewPhotoDetails: ViewPhotoDetails = ViewPhotoDetails()
-) {
-    data class UserList(
-        var arrUserList: List<UserListResponse> = ArrayList<UserListResponse>()
-    )
 
-    data class PhotoAlbumnList(
+    var activeJobCounter: HashSet<String> = HashSet(),
+
+    var fragmentUserList: FragmentUserList = FragmentUserList(),
+
+    var fragmentPictureList: FragmentPictureList = FragmentPictureList()
+
+) : Parcelable {
+
+    @Parcelize
+    data class FragmentUserList(
+        var arrUserList: List<UserListResponse>? = null,
         var userListResponse: UserListResponse? = null,
-        var arrPhotoAlbum: List<AlbumListResponse> = ArrayList<AlbumListResponse>()//to get the list from server
-    )
+        var layoutManagerState: Parcelable? = null
+    ) : Parcelable
 
-    data class ViewPhotoDetails(
-        var albumListResponse: AlbumListResponse? = null
-    )
+    @Parcelize
+    data class FragmentPictureList(
+        var arrAlbumListResponse: List<AlbumListResponse>? = null,
+        var albumListResponse: AlbumListResponse? = null,
+        var layoutManagerState: Parcelable? = null
+    ) : Parcelable
+
 }
 ```
 
 Sample DATASTATE used on this project (as recommended by Google):
 ```aidl
 data class DataState<T>(
-    var error: Event<StateError>? = null,
-    var loading: Loading = Loading(false),
-    var data: Data<T>? = null
+    var error: ErrorState? = null,
+    var data: T? = null,
+    var stateEvent: StateEvent
 ) {
+
     companion object {
-        fun <T> error(response: Response): DataState<T> {
+
+        fun <T> error(
+            errorMessage: String?,
+            stateEvent: StateEvent
+        ): DataState<T> {
             return DataState(
-                error = Event(
-                    StateError(response)
-                )
+                error = ErrorState(
+                    errorMessage ?: UNKNOWN_ERROR
+                ),
+                data = null,
+                stateEvent = stateEvent
             )
         }
 
-        fun <T> loading(isLoading: Boolean, cachedData: T? = null): DataState<T> {
+        fun <T> data(
+            data: T? = null,
+            stateEvent: StateEvent
+        ): DataState<T> {
             return DataState(
-                loading = Loading(isLoading),
-                data = Data(Event.dataEvent(cachedData), null)
-            )
-        }
-
-        fun <T> data(data: T? = null, response: Response? = null): DataState<T> {
-            return DataState(
-                data = Data(Event.dataEvent(data), Event.responseEvent(response))
+                error = null,
+                data = data,
+                stateEvent = stateEvent
             )
         }
     }
