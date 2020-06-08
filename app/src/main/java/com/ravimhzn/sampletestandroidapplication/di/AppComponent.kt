@@ -1,34 +1,49 @@
 package com.ravimhzn.sampletestandroidapplication.di
 
-
 import android.app.Application
-import com.ravimhzn.sampletestandroidapplication.utils.Connection
+import com.ravimhzn.sampletestandroidapplication.fragments.MainNavHostFragment
+import com.ravimhzn.sampletestandroidapplication.ui.MainActivity
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjectionModule
-import dagger.android.AndroidInjector
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.InternalCoroutinesApi
 import javax.inject.Singleton
 
+@ExperimentalCoroutinesApi
+@InternalCoroutinesApi
 @Singleton
-@Component(
-    modules = [
-        AndroidInjectionModule::class,
-        AppModule::class,
-        ActivityBuildersModule::class,
-        ViewModelFactoryModule::class
-    ]
-)
-interface AppComponent : AndroidInjector<BaseApplication> {
-
-    val connection: Connection //Adding this here will enables us to use it anywhere within the application
+@Component(modules = [
+    FragmentModule::class,
+    ViewModelModule::class,
+    InternalBindingsModule::class,
+    AppModule::class,
+    RepositoryModule::class
+])
+interface AppComponent {
 
     @Component.Builder
     interface Builder {
 
         @BindsInstance
-        fun application(application: Application): Builder
+        fun application(app: Application): Builder
 
         fun build(): AppComponent
     }
+
+    fun inject(mainActivity: MainActivity)
+
+    fun inject(mainNavHostFragment: MainNavHostFragment)
 }
+
+
+
+
+
+
+
+
+
+
+
+
 

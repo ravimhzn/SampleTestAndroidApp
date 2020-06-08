@@ -79,9 +79,7 @@ dependencies {
     //Dagger Google Dependencies
     implementation Dependencies.dagger
     kapt Dependencies.dagger_compiler
-    implementation Dependencies.dagger_android
-    implementation Dependencies.dagger_android_support
-    kapt Dependencies.dagger_android_processor
+    kaptAndroidTest Dependencies.dagger_compiler
 
     //Material Design
     implementation Dependencies.material_dialogs
@@ -93,6 +91,8 @@ dependencies {
     implementation SupportDependencies.cardLayout
     implementation SupportDependencies.recyclerView
     implementation SupportDependencies.picasso
+    implementation SupportDependencies.glide
+    kapt SupportDependencies.glide_compiler
 
     //Unit Test
     testImplementation TestDependencies.mockito

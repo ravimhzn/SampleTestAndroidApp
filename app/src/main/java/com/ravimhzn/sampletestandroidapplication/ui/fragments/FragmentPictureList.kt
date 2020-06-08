@@ -1,35 +1,67 @@
 package com.ravimhzn.sampletestandroidapplication.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.codingwithmitch.espressodaggerexamples.ui.viewmodel.getCurrentViewStateOrNew
+import com.codingwithmitch.espressodaggerexamples.ui.viewmodel.getLayoutManagerState
 import com.ravimhzn.sampletestandroidapplication.R
-import com.ravimhzn.sampletestandroidapplication.network.responses.AlbumListResponse
+import com.ravimhzn.sampletestandroidapplication.model.AlbumListResponse
+import com.ravimhzn.sampletestandroidapplication.ui.UICommunicationListener
 import com.ravimhzn.sampletestandroidapplication.ui.fragments.adapter.PhotoListAdapter
-import com.ravimhzn.sampletestandroidapplication.ui.state.MainStateEvent
-import com.ravimhzn.sampletestandroidapplication.ui.state.setAlbumListResponse
-import com.ravimhzn.sampletestandroidapplication.ui.state.setPhotoAlbumList
+import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.MainViewModel
+import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.setAlbumListResponse
+import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.setLayoutManagerState
+import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.state.MainStateEvent
+import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.state.MainViewState
 import com.ravimhzn.sampletestandroidapplication.utils.TopSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_frag_user_list.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.InternalCoroutinesApi
 
-class FragmentPictureList : MainBaseFragment(), PhotoListAdapter.Interaction,
+@ExperimentalCoroutinesApi
+@InternalCoroutinesApi
+class FragmentPictureList(
+    private val viewModelFactory: ViewModelProvider.Factory
+) :
+    Fragment(R.layout.fragment_picture_list),
+    PhotoListAdapter.Interaction,
     SwipeRefreshLayout.OnRefreshListener {
+
+    private val TAG = "AppDebug ->"
+
+    private val CLASS_NAME = "FragmentUserList"
+
+    lateinit var uiCommunicationListener: UICommunicationListener
 
     private lateinit var recyclerAdapter: PhotoListAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_picture_list, container, false)
+    val viewModel: MainViewModel by activityViewModels {
+        viewModelFactory
+    }
+
+    val observer: Observer<MainViewState> = Observer { viewState ->
+        if (viewState != null) {
+            viewState.fragmentUserList.userListResponse?.let { userListResponse ->
+                initData(userListResponse.id)
+            }
+
+            viewState.fragmentPictureList.let { fragmentPictureList ->
+                fragmentPictureList.arrAlbumListResponse?.let { list ->
+                    recyclerAdapter.apply {
+                        submitList(list)
+                    }
+                }
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,12 +71,25 @@ class FragmentPictureList : MainBaseFragment(), PhotoListAdapter.Interaction,
         subscribeObservers()
     }
 
+    private fun initData(id: Int?) {
+        val viewState = viewModel.getCurrentViewStateOrNew()
+        if (viewState.fragmentPictureList.arrAlbumListResponse == null) {
+            id?.let { MainStateEvent.GetPictureList(it) }
+                ?.let { viewModel.setStateEvent(stateEvent = it) }
+        }
+    }
+
+    private fun subscribeObservers() {
+        viewModel.viewState.observe(viewLifecycleOwner, observer)
+    }
+
     private fun initRecyclerView() {
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@FragmentPictureList.context)
             val topSpacingDecorator = TopSpacingItemDecoration(30)
             removeItemDecoration(topSpacingDecorator) // does nothing if not applied already
             addItemDecoration(topSpacingDecorator)
+
             recyclerAdapter = PhotoListAdapter(
                 interaction = this@FragmentPictureList
             )
@@ -52,35 +97,36 @@ class FragmentPictureList : MainBaseFragment(), PhotoListAdapter.Interaction,
         }
     }
 
-    private fun subscribeObservers() {
-        viewModel.dataState.observe(viewLifecycleOwner, Observer { dataState ->
-            stateChangeListener.onDataStateChange(dataState)
-            dataState.data?.let {
-                it.data?.let {
-                    it.getContentIfNotHandled()?.let {
-                        Log.d(TAG, "FragmentPictureList, DataState: ${it}")
-                        viewModel.setPhotoAlbumList(it.photoAlbumnList)
-                    }
-                }
-            }
-        })
+    override fun onRefresh() {
+        subscribeObservers()
+        swipeRefresh.isRefreshing = false
+    }
 
-        viewModel.viewState.observe(viewLifecycleOwner, Observer { viewState ->
-            viewState.photoAlbumnList.userListResponse?.let { userListResponse ->
-                userListResponse.id?.let { id ->
-                    viewModel.setStateEvent(MainStateEvent.GetPhotoAlbumListEvent(id))
-                }
-            }
+    override fun onPause() {
+        super.onPause()
+        saveLayoutManagerState()
+    }
 
-            viewState.photoAlbumnList.arrPhotoAlbum?.let { arrAlbumnList ->
-                arrAlbumnList?.let {
-                    recyclerAdapter.submitList(it)
-                }
-            }
-        })
+    override fun onDestroyView() {
+        super.onDestroyView()
+        recyclerView.adapter =
+            null   // clear references otherwise it can leak memory -> I have No idea how
+    }
+
+    private fun saveLayoutManagerState() {
+        recyclerView.layoutManager?.onSaveInstanceState()?.let { lmState ->
+            viewModel.setLayoutManagerState(lmState)
+        }
+    }
+
+    fun restoreLayoutManager() {
+        viewModel.getLayoutManagerState()?.let { lmState ->
+            recyclerView?.layoutManager?.onRestoreInstanceState(lmState)
+        }
     }
 
     override fun onItemSelected(position: Int, item: AlbumListResponse) {
+        removeViewStateObserver()
         viewModel.setAlbumListResponse(item)
         var bundle = Bundle()
         bundle.putString("title", "")
@@ -90,19 +136,20 @@ class FragmentPictureList : MainBaseFragment(), PhotoListAdapter.Interaction,
         )
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
+    private fun removeViewStateObserver() {
+        viewModel.viewState.removeObserver(observer)
     }
 
-    override fun onRefresh() {
-        resetUI()
-        swipeRefresh.isRefreshing = false
+    override fun restoreListPosition() {
+        restoreLayoutManager()
     }
 
-    private fun resetUI() {
-        /**
-         * We can make network call on it but gonna leave it as it is.
-         */
-        recyclerView.smoothScrollToPosition(0)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            uiCommunicationListener = (context as UICommunicationListener)
+        } catch (e: Exception) {
+            Log.e(CLASS_NAME, "$context must implement UICommunicationListener")
+        }
     }
 }

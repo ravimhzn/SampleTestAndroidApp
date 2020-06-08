@@ -7,9 +7,13 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ravimhzn.sampletestandroidapplication.R
-import com.ravimhzn.sampletestandroidapplication.network.responses.AlbumListResponse
+import com.ravimhzn.sampletestandroidapplication.model.AlbumListResponse
 import com.ravimhzn.sampletestandroidapplication.utils.extension.setImageUrl
 import kotlinx.android.synthetic.main.layout_image_list.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class PhotoListAdapter(
     private val interaction: Interaction? = null
@@ -61,6 +65,18 @@ class PhotoListAdapter(
     }
 
     fun submitList(list: List<AlbumListResponse>) {
+        val commitCallback = Runnable {
+            /*
+                if process died or nav back need to restore layoutmanager AFTER
+                data is set... very annoying.
+                Not sure why I need the delay... Can't figure this out. I've tested with lists
+                100x the size of this one and the 100ms delay works fine.
+             */
+            CoroutineScope(Dispatchers.Main).launch {
+                delay(100)
+                interaction?.restoreListPosition()
+            }
+        }
         differ.submitList(list)
     }
 
@@ -81,5 +97,6 @@ class PhotoListAdapter(
 
     interface Interaction {
         fun onItemSelected(position: Int, item: AlbumListResponse)
+        fun restoreListPosition()
     }
 }

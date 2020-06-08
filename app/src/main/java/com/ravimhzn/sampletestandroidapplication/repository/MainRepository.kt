@@ -1,12 +1,13 @@
 package com.ravimhzn.sampletestandroidapplication.repository
 
-import androidx.lifecycle.LiveData
-import com.ravimhzn.sampletestandroidapplication.ui.DataState
-import com.ravimhzn.sampletestandroidapplication.ui.state.MainViewState
+import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.state.MainViewState
+import com.ravimhzn.sampletestandroidapplication.utils.DataState
+import com.ravimhzn.sampletestandroidapplication.utils.StateEvent
+import kotlinx.coroutines.flow.Flow
 
 interface MainRepository {
 
-    fun getUserListFromServer(): LiveData<DataState<MainViewState>>
+    fun getUserListFromServer(stateEvent: StateEvent): Flow<DataState<MainViewState>>
 
-    fun getPhotoAlbumFromServer(id: Int): LiveData<DataState<MainViewState>>
+    fun getPictureListFromServer(stateEvent: StateEvent, id: Int): Flow<DataState<MainViewState>>
 }

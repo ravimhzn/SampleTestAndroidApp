@@ -1,30 +1,38 @@
 package com.ravimhzn.sampletestandroidapplication.di
 
-
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.ravimhzn.sampletestandroidapplication.utils.Constants.Companion.BASE_URL
-import com.ravimhzn.sampletestandroidapplication.utils.LiveDataCallAdapterFactory
+import android.app.Application
+import com.bumptech.glide.Glide
+import com.codingwithmitch.espressodaggerexamples.util.GlideManager
+import com.codingwithmitch.espressodaggerexamples.util.GlideRequestManager
 import dagger.Module
 import dagger.Provides
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.InternalCoroutinesApi
 import javax.inject.Singleton
 
+/* Alternative for Test: 'TestAppModule' */
+@ExperimentalCoroutinesApi
+@InternalCoroutinesApi
 @Module
-class AppModule {
+object AppModule{
 
+    @JvmStatic
     @Singleton
     @Provides
-    fun provideGsonBuilder(): Gson = GsonBuilder().excludeFieldsWithoutExposeAnnotation()
-        .create() //it will exclude fields that are not annotated with @Expose annotation
+    fun provideGlideRequestManager(
+        application: Application
+    ): GlideManager {
+        return GlideRequestManager(
+            Glide.with(application)
+        )
+    }
 
-
-    @Singleton
-    @Provides
-    fun provideRetrofitBuilder(gson: Gson): Retrofit.Builder = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addCallAdapterFactory(LiveDataCallAdapterFactory())
-        .addConverterFactory(GsonConverterFactory.create(gson))
 }
+
+
+
+
+
+
+
 
