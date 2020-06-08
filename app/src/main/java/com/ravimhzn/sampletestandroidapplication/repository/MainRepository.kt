@@ -8,4 +8,6 @@ import kotlinx.coroutines.flow.Flow
 interface MainRepository {
 
     fun getUserListFromServer(stateEvent: StateEvent): Flow<DataState<MainViewState>>
+
+    fun getPictureListFromServer(stateEvent: StateEvent, id: Int): Flow<DataState<MainViewState>>
 }

@@ -21,7 +21,6 @@ object RepositoryModule {
             .create(ApiService::class.java)
     }
 
-
     @JvmStatic
     @Singleton
     @Provides

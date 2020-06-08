@@ -1,5 +1,6 @@
 package com.ravimhzn.sampletestandroidapplication.ui.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,8 +8,10 @@ import androidx.lifecycle.viewModelScope
 import com.codingwithmitch.espressodaggerexamples.ui.viewmodel.isJobAlreadyActive
 import com.ravimhzn.sampletestandroidapplication.repository.MainRepository
 import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.state.MainStateEvent
+import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.state.MainStateEvent.GetPictureList
 import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.state.MainStateEvent.GetUserListEvent
 import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.state.MainViewState
+import com.ravimhzn.sampletestandroidapplication.utils.Constants.Companion.TAG
 import com.ravimhzn.sampletestandroidapplication.utils.DataState
 import com.ravimhzn.sampletestandroidapplication.utils.ErrorStack
 import com.ravimhzn.sampletestandroidapplication.utils.ErrorState
@@ -80,6 +83,14 @@ constructor(
                 )
             }
 
+            is GetPictureList -> {
+                Log.d(TAG, "testID: ${stateEvent.id}")
+                launchJob(
+                    stateEvent = stateEvent,
+                    jobFunction = mainRepository.getPictureListFromServer(stateEvent, stateEvent.id)
+                )
+            }
+
         }
     }
 
@@ -92,6 +103,10 @@ constructor(
 
         data.fragmentUserList.arrUserList?.let { userListResponse ->
             setUserList(userListResponse)
+        }
+
+        data.fragmentPictureList.arrAlbumListResponse?.let { list ->
+            setPictureList(list)
         }
 
         removeJobFromCounter(stateEvent.toString()) //This will disable progressbar

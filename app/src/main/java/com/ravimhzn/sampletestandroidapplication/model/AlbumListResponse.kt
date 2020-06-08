@@ -1,8 +1,11 @@
 package com.ravimhzn.sampletestandroidapplication.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class AlbumListResponse(
     @SerializedName("albumId")
     @Expose
@@ -23,4 +26,4 @@ data class AlbumListResponse(
     @SerializedName("url")
     @Expose
     val url: String? = null
-)
+): Parcelable

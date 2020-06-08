@@ -19,6 +19,7 @@ import com.ravimhzn.sampletestandroidapplication.ui.UICommunicationListener
 import com.ravimhzn.sampletestandroidapplication.ui.fragments.adapter.UserListAdapter
 import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.MainViewModel
 import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.setLayoutManagerState
+import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.setUserListResponse
 import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.state.MainStateEvent.GetUserListEvent
 import com.ravimhzn.sampletestandroidapplication.ui.viewmodels.state.MainViewState
 import com.ravimhzn.sampletestandroidapplication.utils.TopSpacingItemDecoration
@@ -134,8 +135,8 @@ class FragmentUserList(
     }
 
     override fun onItemSelected(position: Int, item: UserListResponse) {
-//        Log.d(TAG, "onItemSelected: $item")
-//        viewModel.setUserListResponse(item)
+       // removeViewStateObserver()
+        viewModel.setUserListResponse(item)
         var bundle = Bundle()
         item.id?.let {
             bundle.putString(
@@ -144,6 +145,10 @@ class FragmentUserList(
             ) //should match the name of label on nav_graph
         }
         findNavController().navigate(R.id.action_fragmentUserList_to_fragmentPictureList, bundle)
+    }
+
+    private fun removeViewStateObserver(){
+        viewModel.viewState.removeObserver(observer)
     }
 
     override fun onAttach(context: Context) {

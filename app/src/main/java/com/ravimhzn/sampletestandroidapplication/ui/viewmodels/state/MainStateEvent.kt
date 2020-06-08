@@ -14,4 +14,14 @@ sealed class MainStateEvent :
             return "GetUserListEvent"
         }
     }
+
+    class GetPictureList(val id: Int) : MainStateEvent() {
+        override fun errorInfo(): String {
+            return "Unable to retrieve picture lists"
+        }
+
+        override fun toString(): String {
+            return "GetPictureList"
+        }
+    }
 }

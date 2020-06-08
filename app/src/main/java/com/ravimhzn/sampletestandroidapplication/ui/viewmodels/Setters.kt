@@ -2,6 +2,7 @@ package com.ravimhzn.sampletestandroidapplication.ui.viewmodels
 
 import android.os.Parcelable
 import com.codingwithmitch.espressodaggerexamples.ui.viewmodel.getCurrentViewStateOrNew
+import com.ravimhzn.sampletestandroidapplication.model.AlbumListResponse
 import com.ravimhzn.sampletestandroidapplication.model.UserListResponse
 import com.ravimhzn.sampletestandroidapplication.utils.ErrorStack
 import com.ravimhzn.sampletestandroidapplication.utils.ErrorState
@@ -17,6 +18,29 @@ fun MainViewModel.setUserList(userList: List<UserListResponse>) {
     setViewState(update)
 }
 
+@ExperimentalCoroutinesApi
+@InternalCoroutinesApi
+fun MainViewModel.setUserListResponse(userListResponse: UserListResponse) {
+    val update = getCurrentViewStateOrNew()
+    update.fragmentUserList.userListResponse = userListResponse
+    setViewState(update)
+}
+
+@ExperimentalCoroutinesApi
+@InternalCoroutinesApi
+fun MainViewModel.setPictureList(albumListResponse: List<AlbumListResponse>) {
+    val update = getCurrentViewStateOrNew()
+    update.fragmentPictureList.arrAlbumListResponse = albumListResponse
+    setViewState(update)
+}
+
+@ExperimentalCoroutinesApi
+@InternalCoroutinesApi
+fun MainViewModel.setAlbumListResponse(albumtListResponse: AlbumListResponse) {
+    val update = getCurrentViewStateOrNew()
+    update.fragmentPictureList.albumListResponse = albumtListResponse
+    setViewState(update)
+}
 
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
