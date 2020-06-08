@@ -8,7 +8,7 @@ import com.ravimhzn.sampletestandroidapplication.model.UserListResponse
 
 class FakeApiService(
     private val testClassLoader: ClassLoader
-): ApiService {
+) : ApiService {
 
     override suspend fun getUserList(): List<UserListResponse> {
         val userList: List<UserListResponse> = Gson().fromJson(
@@ -19,7 +19,11 @@ class FakeApiService(
     }
 
     override suspend fun getPhotoAlbum(): List<AlbumListResponse> {
-        TODO("Not yet implemented")
+        val albumListResponse: List<AlbumListResponse> = Gson().fromJson(
+            getNotesFromFile("picturelist.json"),
+            object : TypeToken<List<AlbumListResponse>>() {}.type
+        )
+        return albumListResponse
     }
 
     fun getNotesFromFile(fileName: String): String {

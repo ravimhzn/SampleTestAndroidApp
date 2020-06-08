@@ -1,6 +1,5 @@
 package com.ravimhzn.sampletestandroidapplication.repository
 
-import android.util.Log
 import com.ravimhzn.sampletestandroidapplication.api.ApiService
 import com.ravimhzn.sampletestandroidapplication.model.AlbumListResponse
 import com.ravimhzn.sampletestandroidapplication.model.UserListResponse
@@ -64,10 +63,7 @@ class MainRepositoryImpl @Inject constructor(
                     stateEvent = stateEvent
                 ) {
                     override fun handleSuccess(resultObj: List<AlbumListResponse>): DataState<MainViewState> {
-                        Log.d(TAG, "handleSuccess: ${resultObj}")
-                        println("appdebug -> ORIGINAL SIZE ${resultObj.size}")
                         var filteredResponse = getFilteredResponse(resultObj, id)
-                        println("appdebug -> FILTERED SIZE ${filteredResponse.size}")
                         return DataState.data(
                             data = MainViewState(
                                 fragmentPictureList = MainViewState.FragmentPictureList(
@@ -78,24 +74,24 @@ class MainRepositoryImpl @Inject constructor(
                         )
                     }
 
-                    private fun getFilteredResponse(
-                        rawResponse: List<AlbumListResponse>,
-                        id: Int
-                    ): List<AlbumListResponse> {
-                        return rawResponse.filter { albumListResponse ->
-                            checkIfIdMatches(albumListResponse, id)
-                        }
-                    }
-
-                    private fun checkIfIdMatches(it: AlbumListResponse, id: Int): Boolean {
-                        return it?.albumId == id
-                    }
 
                 }.getResult
 
             emit(result)
         }
 
+    fun getFilteredResponse(
+        rawResponse: List<AlbumListResponse>,
+        id: Int
+    ): List<AlbumListResponse> {
+        return rawResponse.filter { albumListResponse ->
+            checkIfIdMatches(albumListResponse, id)
+        }
+    }
+
+    private fun checkIfIdMatches(it: AlbumListResponse, id: Int): Boolean {
+        return it?.albumId == id
+    }
 
 }
 
