@@ -16,7 +16,7 @@ import kotlin.random.Random
 @InternalCoroutinesApi
 class MainRepositoryImplTest {
 
-    private lateinit var SUT: MainRepositoryImpl
+    private var SUT: MainRepositoryImpl
 
     private lateinit var apiService: FakeApiService
 

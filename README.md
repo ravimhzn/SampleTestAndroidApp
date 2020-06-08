@@ -155,6 +155,16 @@ JUnit is the unit testing framework that I've used in my app.
 
 Mockito is the mocking framework for unit testing I've used in this app and it lets you create test objects for the purpose of test-driven development or behaviour-driven development.
 
+## To Run the Test:
+```aidl
+gradlew.bat test --stacktrace (Unit Test For windows)
+./gradlew test --stacktrace (Unit Test For windows)
+gradlew.bat connectedAndroidTest --stacktrace (Instrumentation Test For windows)
+./gradlew connectedAndroidTest --stacktrace (Instrumentation Test For windows)
+//Note: You can find the HTML Test Report inside "\app\build\reports\tests\"
+```
+
+
 ## Things To Work On In The Future
 
 * Data Binding could be used for cleaner View-related code. I've yet to explore Data Binding more deeply which is the reason I've skipped it on this project currently.
