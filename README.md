@@ -27,8 +27,6 @@ Abiding the Sigle Source of truth principle, Repository is designed accordingly 
 
 Use Cases are used to perform business logic operations on the data obtained from the repositories.
 
-Unit tests are still a very painful topic for me to be honest. However I've tried to cover as much test cases as possible.
-
 ### Why MVI?
 
 Great question!
